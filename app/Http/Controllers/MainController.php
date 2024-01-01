@@ -120,27 +120,28 @@ public function getTicket($id){
 
 }
 
-    public function editTicket($id, Request $req){
-        $ticket = Ticket::find($id);
-        if($ticket->user_id == $req->user->id) {
+    public function editTicket(Request $req){
+        $ticket = Ticket::find($req->id);
+        if($ticket->user_id == session('uid')) {
            $validatedTicket = $req->validate([
             "subject" => "required",
             "select_department" => "required",
             "description" => "required",
            ]);
-           Ticket::update($validatedTicket);
+           $ticket->update($validatedTicket);
             $validatedAttachments = $req->validate([
                 "attachments.*" => "required|mimes:png,jpg,jpeg,gif,pdf,doc,docx|max:2048",
             ]);
             if($req->hasFile('attachments')) {
                 foreach ($validatedAttachments["attachments"] as $attachment) {
                     $attachmentName = $attachment->store('attachments','public');
-                    Attachment::update([
+                    Attachment::create([
                         "path" => $attachmentName,
                         "ticket_id" => Ticket::latest()->first()->id,
                     ]);
                 }
             }
+            return redirect('/user-dashboard')->with('ticketUpdatedSuccessfully', 'Ticket has been updated successfully');
            
         }
     }
@@ -154,6 +155,13 @@ public function getTicket($id){
         }
     }
 
-
+    public function getEditTicketPage($id, Request $req){
+        if(Session::has('uid')){
+            $findTicket = Ticket::find($id);
+            $user = $findTicket->attachedUser;
+            $attachments = $findTicket->attachedAttachments;
+            return view('userPages.editTicket')->with('ticket',$findTicket)->with('user',$user)->with('attachments',$attachments);
+        }
+    }
 
 }

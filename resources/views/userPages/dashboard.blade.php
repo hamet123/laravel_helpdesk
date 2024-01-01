@@ -50,7 +50,13 @@
                             <td>{{ $ticket['status'] }}</td>
                             {{-- <td style="text-align:center; font-size:18px;"><a class="text-danger" href="{{ asset(Storage::url($ticket['attachment'])) }}">View</a></td> --}}
                             <td><a class="btn btn-success" href="/ticket/edit/{{ $ticket['id'] }}">Edit</a></td>
-                            <td><a class="btn btn-danger" href="/ticket/close/{{ $ticket['id'] }}">Close</a></td>
+                            <td>
+                                @if ($ticket['status'] !== 'closed')
+                                <a class="btn btn-danger" href="/ticket/close/{{ $ticket['id'] }}">Close</a>
+                                @else
+                                <a class="btn btn-danger" href="#" style="cursor:none; background:grey" disabled>Already Closed</a>
+                                @endif
+                            </td>
                         </tr>  
                         @empty
                             <h2 class="text-danger text-center">No tickets found</h2>

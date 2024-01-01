@@ -32,8 +32,10 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/create-ticket','getCreateTicket')->name('getCreateTicket');
     Route::post('/create-ticket','createTicket');
     Route::get('ticket/{id}','getTicket')->name('getTicket');
-    Route::get('/ticket/edit/{id}','editTicket')->name('editTicket');
+    Route::get('/ticket/edit/{id}','getEditTicketPage')->name('editTicket');
     Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
+    Route::post('/edit-ticket','editTicket');
+    
 });
 
 

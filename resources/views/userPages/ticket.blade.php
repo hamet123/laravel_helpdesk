@@ -20,6 +20,9 @@
             <div class="p-3" style="border: 1px solid grey; padding:20px;" >
                 <h4 class="text-white text-center mb-3">Ticket Description </h4><hr style="background:white;">
                 <textarea style="background:rgba(0,0,0,0.2);color:white; width:100%; min-height:250px; padding:20px;" id="" disabled>{{ $ticket['description'] }}</textarea>
+                @foreach ($ticketAttachments as $singleAttachment)
+                    <a class="mx-2 text-danger" href="{{ Storage::url($singleAttachment->path) }}">Attachment {{ $loop->iteration }}  </a>
+                @endforeach
             </div>
         </div>
         <div class="col-md-4 pb-5" style="background:rgba(0,0,0,0.7);">

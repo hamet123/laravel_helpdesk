@@ -33,7 +33,7 @@
                             <th>Ticket ID</th>
                             <th>Created By</th>
                             <th>Status</th>
-                            <th>Attachments</th>
+                            {{-- <th>Attachments</th> --}}
                             <th>Edit Ticket</th>
                             <th>Close Ticket</th>
                         </tr>
@@ -48,7 +48,7 @@
                             <td style="text-align:center; font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
                             <td>{{ $user['name'] }}</td>
                             <td>{{ $ticket['status'] }}</td>
-                            <td style="text-align:center; font-size:18px;"><a class="text-danger" href="{{ asset(Storage::url($ticket['attachment'])) }}">View</a></td>
+                            {{-- <td style="text-align:center; font-size:18px;"><a class="text-danger" href="{{ asset(Storage::url($ticket['attachment'])) }}">View</a></td> --}}
                             <td><a class="btn btn-success" href="/ticket/edit/{{ $ticket['id'] }}">Edit</a></td>
                             <td><a class="btn btn-danger" href="/ticket/close/{{ $ticket['id'] }}">Close</a></td>
                         </tr>  

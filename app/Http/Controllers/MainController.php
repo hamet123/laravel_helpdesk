@@ -71,9 +71,8 @@ class MainController extends Controller
                 "subject" => "required",
                 "select_department" => "required",
                 "description" => "required",
-                "attachment" => "required|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048"
             ]);
-            $attachmentPath = $req->file("attachment")->store("ticketAttachments","public");
+            
             
             Ticket::create([
                 "subject"           => $validatedTicket["subject"],
@@ -81,8 +80,21 @@ class MainController extends Controller
                 "user_id"           => Session::get("uid"),
                 "description"       => $validatedTicket["description"],
                 "status"            => "pending",
-                "attachment"        => $attachmentPath,
             ]);
+
+            $validatedAttachments = $req->validate([
+                "attachments.*" => "required|mimes:png,jpg,jpeg,gif,pdf,doc,docx|max:2048",
+            ]);
+
+            if($req->hasFile('attachments')) {
+                foreach ($validatedAttachments["attachments"] as $attachment) {
+                    $attachmentName = $attachment->store('attachments','public');
+                    Attachment::create([
+                        "path" => $attachmentName,
+                        "ticket_id" => Ticket::latest()->first()->id,
+                    ]);
+                }
+            }
           
             $req->session()->flash('ticketRaisedSuccessfully','Ticket has been raised successfully');
            return redirect('/user-dashboard');
@@ -108,7 +120,39 @@ public function getTicket($id){
 
 }
 
+    public function editTicket($id, Request $req){
+        $ticket = Ticket::find($id);
+        if($ticket->user_id == $req->user->id) {
+           $validatedTicket = $req->validate([
+            "subject" => "required",
+            "select_department" => "required",
+            "description" => "required",
+           ]);
+           Ticket::update($validatedTicket);
+            $validatedAttachments = $req->validate([
+                "attachments.*" => "required|mimes:png,jpg,jpeg,gif,pdf,doc,docx|max:2048",
+            ]);
+            if($req->hasFile('attachments')) {
+                foreach ($validatedAttachments["attachments"] as $attachment) {
+                    $attachmentName = $attachment->store('attachments','public');
+                    Attachment::update([
+                        "path" => $attachmentName,
+                        "ticket_id" => Ticket::latest()->first()->id,
+                    ]);
+                }
+            }
+           
+        }
+    }
 
+    public function closeTicket($id, Request $req){
+        if(Session::has('uid')){
+            $foundTicket = Ticket::find($id);
+            $foundTicket->status = 'closed';
+            $foundTicket->save();
+            return redirect('/user-dashboard')->with('ticketClosedSuccessfully','Ticket has been closed successfully');
+        }
+    }
 
 
 

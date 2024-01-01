@@ -50,8 +50,8 @@ label{
             <span class="text-danger">@error('description') {{ $message }} @enderror</span>
           </div>
           <div class="mb-3">
-            <label for="attachment" class="form-label">Attachments</label>
-            <input class="form-control" type="file" id="attachment" multiple name="attachment">
+            <label for="attachments" class="form-label">Attachments</label>
+            <input class="form-control" type="file" id="attachments" multiple name="attachments[]">
           </div>
         <button type="submit" class="btn btn-danger">Submit</button>
       </form>

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('subject');
             $table->string('select_department');
             $table->text('description');
-            $table->string('attachment');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

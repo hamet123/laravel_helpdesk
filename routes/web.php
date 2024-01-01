@@ -33,7 +33,7 @@ Route::controller(MainController::class)->group(function(){
     Route::post('/create-ticket','createTicket');
     Route::get('ticket/{id}','getTicket')->name('getTicket');
     Route::get('/ticket/edit/{id}','editTicket')->name('editTicket');
-    Route::get('/ticket/delete/{id}','deleteTicket')->name('deleteTicket');
+    Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
 });
 
 

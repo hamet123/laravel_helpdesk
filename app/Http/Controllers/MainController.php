@@ -149,20 +149,26 @@ public function getTicket($id){
     }
 
     public function closeTicket($id, Request $req){
-        if(Session::has('uid')){
-            $foundTicket = Ticket::find($id);
+        $foundTicket = Ticket::find($id);
+        if($foundTicket->user_id == session('uid')){
             $foundTicket->status = 'closed';
             $foundTicket->save();
             return redirect('/user-dashboard')->with('ticketClosedSuccessfully','Ticket has been closed successfully');
         }
+        else {
+            return "Your are not authorised to close this ticket";
+        }
     }
 
     public function reOpenTicket($id, Request $req){
-        if(Session::has('uid')){
-            $foundTicket = Ticket::find($id);
+        $foundTicket = Ticket::find($id);
+        if($foundTicket->user_id == session('uid')){
             $foundTicket->status = 'pending';
             $foundTicket->save();
             return redirect('/user-dashboard')->with('ticketReopenedSuccessfully','Ticket has been Re-Opened successfully');
+        }
+        else {
+            return "Your are not authorised to re-open this ticket";
         }
     }
     public function getEditTicketPage($id, Request $req){

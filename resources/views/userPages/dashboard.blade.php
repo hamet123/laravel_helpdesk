@@ -33,31 +33,29 @@
                             <th>Ticket ID</th>
                             <th>Created By</th>
                             <th>Status</th>
-                            {{-- <th>Attachments</th> --}}
-                            <th>Edit Ticket</th>
-                            <th>Close Ticket</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($tickets as $ticket)
+                        @if ($ticket['status']!=='closed')
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $ticket['subject'] }}</td>
                             <td>{{ $ticket['select_department'] }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
-                            <td style="text-align:center; font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
+                            <td style=" font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
                             <td>{{ $user['name'] }}</td>
                             <td>{{ $ticket['status'] }}</td>
-                            {{-- <td style="text-align:center; font-size:18px;"><a class="text-danger" href="{{ asset(Storage::url($ticket['attachment'])) }}">View</a></td> --}}
-                            <td><a class="btn btn-success" href="/ticket/edit/{{ $ticket['id'] }}">Edit</a></td>
-                            <td>
-                                @if ($ticket['status'] !== 'closed')
-                                <a class="btn btn-danger" href="/ticket/close/{{ $ticket['id'] }}">Close</a>
-                                @else
-                                <a class="btn btn-danger" href="#" style="cursor:none; background:grey" disabled>Already Closed</a>
-                                @endif
-                            </td>
+                            
                         </tr>  
+                        @else
+                        <h2 class="text-danger text-center">No tickets found</h2>
+                            <style>
+                                .hideTableWhenEmpty{
+                                    display:none;
+                                }
+                            </style>
+                        @endif  
                         @empty
                             <h2 class="text-danger text-center">No tickets found</h2>
                             <style>

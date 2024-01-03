@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id')->unique()->default(rand(994392343,999999999));
             $table->foreignId('user_id')->constrained('users');
             $table->string('subject');
             $table->string('select_department');

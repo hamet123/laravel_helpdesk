@@ -35,6 +35,7 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/ticket/edit/{id}','getEditTicketPage')->name('editTicket');
     Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
     Route::post('/edit-ticket','editTicket');
+    Route::get('/ticket/reopen/{id}','reOpenTicket')->name('reOpenTicket');
     
 });
 

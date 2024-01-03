@@ -30,7 +30,8 @@ class MainController extends Controller
     public function getPendingTickets(){
         if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
-            return view("userPages.pendingTickets")->with("user",$userData);
+            $tickets=$userData->attachedTickets;
+            return view("userPages.pendingTickets")->with("user",$userData)->with("tickets",$tickets);
         }
         else{
             return redirect("/login")->with("loginError","Please Login First to view all pending Tickets");
@@ -39,7 +40,8 @@ class MainController extends Controller
     public function getClosedTickets(){
         if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
-            return view("userPages.closedTickets")->with("user",$userData);
+            $tickets = $userData->attachedTickets;
+            return view("userPages.closedTickets")->with("user",$userData)->with("tickets",$tickets);
         }
         else{
             return redirect("/login")->with("loginError","Please Login First to view all closed Tickets");
@@ -155,6 +157,14 @@ public function getTicket($id){
         }
     }
 
+    public function reOpenTicket($id, Request $req){
+        if(Session::has('uid')){
+            $foundTicket = Ticket::find($id);
+            $foundTicket->status = 'pending';
+            $foundTicket->save();
+            return redirect('/user-dashboard')->with('ticketReopenedSuccessfully','Ticket has been Re-Opened successfully');
+        }
+    }
     public function getEditTicketPage($id, Request $req){
         if(Session::has('uid')){
             $findTicket = Ticket::find($id);

@@ -13,13 +13,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>iDesk - @yield('title')</title>
     @stack('customstyle')
-    {{-- <style>
-        body{
-            background:url('https://freevector-images.s3.amazonaws.com/uploads/vector/preview/40695/FreevectorLuxury-Beige-BackgroundAS0821_generated.jpg');
-            background-size: cover;
-            background-repeat:no-repeat;
-        }
-    </style> --}}
+   
 </head>
 
 <body>

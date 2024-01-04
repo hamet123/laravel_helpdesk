@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         @forelse ($tickets as $ticket)
-                        @if ($ticket['status']!=='closed')
+                        @if ($ticket)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $ticket['subject'] }}</td>

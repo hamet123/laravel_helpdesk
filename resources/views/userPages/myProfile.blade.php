@@ -25,17 +25,11 @@
 }
 
 /* Profile picture background styling  */
-<<<<<<< HEAD
+
 #fileInputWrapper, #fileInputWrapper2 {
       position: relative;
       width: 100px;
       height: 100px;
-=======
-#fileInputWrapper {
-      position: relative;
-      width: 150px;
-      height: 150px;
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
       overflow: hidden;
       border-radius: 50%;
       background: url('https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg') center/cover no-repeat;
@@ -50,11 +44,8 @@
       object-fit: cover;
     }
 
-<<<<<<< HEAD
+
     #fileInput, #fileInput2 {
-=======
-    #fileInput {
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
       position: absolute;
       top: 0;
       left: 0;
@@ -102,30 +93,12 @@
 
 
 @section('usercontent')
-<<<<<<< HEAD
-
-@php
-    if($userDetails==NULL){
-        $userDetails=[
-            "user_id" => NULL,
-            "phone" => "",
-            "address" => "",
-            "facebook" => "",
-            "twitter" => "",
-            "instagram" => "",
-            "youtube" => "",
-        ];
-    }
-@endphp
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
 <div class="container parentdiv mt-5">
     <div class="row">
         <div class="col-md-4 firsthalfdiv">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
-<<<<<<< HEAD
                         @if ($user['profile_pic_path'] == NULL)
                         <form action="/upload-profile-pic" method="POST" enctype="multipart/form-data" files="true">
                             @csrf
@@ -146,15 +119,7 @@
                           </form>
                         @endif
                      
-=======
-                        <img src="" alt="">
-                      <form action="/upload-profile-pic" method="POST" enctype="multipart/form-data">
-                        <label for="fileInput" id="fileInputWrapper">
-                            <span class="text-danger uploadPicText" style="display:none;">Upload</span>
-                            <input type="file" id="fileInput" accept="image/*">
-                          </label>
-                      </form>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
                     </div>
                     <hr class="my-4">
                 </div>
@@ -163,11 +128,8 @@
                     <div class="col-md-12">
                         <div class="contact">
                             <p class="contactTitle">Address</p>
-<<<<<<< HEAD
                             <p class="contact">{{ $userDetails['address'] }}</p>
-=======
-                            <p class="contact">Set No. 2, Type-3, Block M-1, Housing Board Colony, Mehli, Shimla 171009</p>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
                         </div>
                     </div>
                     <hr class="my-3"> 
@@ -178,13 +140,9 @@
                     <div class="col-md-12">
                         <div class="address">
                             <p class="addressTitle">Contact Details</p>
-<<<<<<< HEAD
                             <p class="address">Phone Number :  {{ $userDetails['phone'] }}</p>
                             <p class="address">Email : {{ $user['email'] }}</p>
-=======
-                            <p class="address">Phone Number : </p>
-                            <p class="address">Email : </p>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
                         </div>
                     </div>
                     <hr class="my-3"> 
@@ -198,7 +156,6 @@
                             <div class="row">
                                 
                                 <div class="col-md-3">
-<<<<<<< HEAD
                                     <a href="{{ $userDetails['facebook'] }}"> <i class="socialIcons fa-brands fa-square-facebook"></i></a>
                                 </div>
                                 <div class="col-md-3">
@@ -209,18 +166,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <a href="{{ $userDetails['instagram'] }}"><i class="socialIcons fa-brands fa-square-instagram"></i></a>
-=======
-                                    <i class="socialIcons fa-brands fa-square-facebook"></i>
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="socialIcons fa-brands fa-square-x-twitter"></i>
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="socialIcons fa-brands fa-youtube"></i>
-                                </div>
-                                <div class="col-md-3">
-                                    <i class="socialIcons fa-brands fa-square-instagram"></i>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
                                 </div>
                             </div>
                             
@@ -237,7 +183,6 @@
         
         <div class="col-md-8 secondhalfdiv">
             <div class="container">
-<<<<<<< HEAD
                 <h4 class="text-white">Edit Profile</h4>
                 <hr>
                 @if ($userDetails['user_id']!==NULL)
@@ -252,22 +197,37 @@
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" name="name" class="form-control" id="name" value="{{ $user['name'] }}">
                             </div>
+                            @error('name')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-1">
                                 <label for="role" class="form-label">Role</label>
                                 <input type="text" name="role" class="form-control" id="role" value="{{ $user['role'] }}" disabled>
                             </div>
+                            @error('role')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-1">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="text" name="phone" class="form-control" id="phone" value="{{ $userDetails['phone'] }}">
                             </div>
+                            @error('phone')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-3">
                                 <label for="facebook" class="form-label">Facebook Profile URL</label>
                                 <input type="text" name="facebook" class="form-control" id="facebook" value="{{ $userDetails['facebook'] }}">
                             </div>
+                            @error('facebook')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-3">
                                 <label for="twitter" class="form-label">Twitter Profile URL</label>
                                 <input type="text" name="twitter" class="form-control" id="twitter" value="{{ $userDetails['twitter'] }}">
                             </div>
+                            @error('twitter')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             @if ($userDetails['user_id']!==NULL)
                             <input type="submit" value="Update" class="btn btn-success mt-2">
                             @else
@@ -279,62 +239,42 @@
                                 <label for="email" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="email" name="email" value="{{ $user['email'] }}" disabled>
                             </div>
+                            @error('email')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-1">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" name="username" class="form-control" id="usernameme" value="{{ $user['username'] }}" disabled>
                             </div>
+                            @error('username')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-1">
                                 <label for="address" class="form-label">Address</label>
                                 <textarea name="address" class="form-control" rows="1" id="address">{{ $userDetails['address'] }}</textarea>
                             </div>
+                            @error('address')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-3">
                                 <label for="youtube" class="form-label">Youtube Channel URL</label>
                                 <input type="text" name="youtube" class="form-control" id="youtube" value="{{ $userDetails['youtube'] }}">
                             </div>
+                            @error('youtube')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                             <div class="mb-3">
                                 <label for="instagram" class="form-label">Instagram Profile URL</label>
                                 <input type="text" name="instagram" class="form-control" id="instagram" value="{{ $userDetails['instagram'] }}">
-=======
-                <form action="/edit-profile" method="POST">
-                    <div class="row my-5">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Full Name</label>
-                                <input type="text" name="name" class="form-control" id="name">
                             </div>
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Role</label>
-                                <input type="text" name="role" class="form-control" id="role">
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" name="phone" class="form-control" id="phone">
-                            </div>
-                            <input type="submit" value="Save" class="btn btn-success">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" name="username" class="form-control" id="usernameme">
-                            </div>
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Address</label>
-                                <textarea name="Address" class="form-control" rows="1" id="address"></textarea>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
-                            </div>
+                            @error('instagram')
+                                <span class="text-danger my-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </form>
-
-<<<<<<< HEAD
                     {{-- <div class="row">
-=======
-                    <div class="row">
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
                         <div class="row my-1">
                             <div class="col-md-12 p-3" style="border-radius:10px; border-bottom:1px solid rgb(173, 173, 173);">
                                 <ul class="d-flex p-0 justify-content-around align-items-center" style="list-style:none;">
@@ -349,11 +289,7 @@
 
                     <form action="/change-password" method="POST">
                     @csrf
-=======
-                    </div>
 
-                    <form action="/change-password" method="POST">
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
                         <h5 class="text-white  mt-5 mb-2">Change Your Password</h5>
                         <div class="row" style="border-radius:10px; border:1px solid rgb(173, 173, 173); padding:20px;">
                             <div class="col-md-4">

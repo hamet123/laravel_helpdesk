@@ -81,6 +81,5 @@
   <strong>{{ session('profileUpdatedSuccessfully') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
 @endif

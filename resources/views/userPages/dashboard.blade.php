@@ -35,7 +35,6 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-<<<<<<< HEAD
                     @php
                             $serialNumber=0;
                     @endphp
@@ -47,13 +46,6 @@
                         @if ($ticket)
                         <tr>
                             <td>{{ $serialNumber }}</td>
-=======
-                    <tbody>
-                        @forelse ($tickets as $ticket)
-                        @if ($ticket)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
                             <td>{{ $ticket['subject'] }}</td>
                             <td>{{ $ticket['select_department'] }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>

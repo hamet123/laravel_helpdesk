@@ -38,6 +38,7 @@
                             
                         </tr>
                     </thead>
+<<<<<<< HEAD
                     @php
                             $serialNumber=0;
                     @endphp
@@ -48,6 +49,13 @@
                         @php $serialNumber++; @endphp
                         <tr>
                             <td>{{ $serialNumber }}</td>
+=======
+                    <tbody>
+                        @forelse ($tickets as $ticket)
+                        @if ($ticket['status']!=='closed')
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
                             <td>{{ $ticket['subject'] }}</td>
                             <td>{{ $ticket['select_department'] }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
@@ -68,9 +76,22 @@
                                 <a class="btn btn-danger" href="#" style="cursor:not-allowed; background:grey" disabled>Already Closed</a>
                                 @endif
                             </td>
+<<<<<<< HEAD
                          </tr>       
                         @endif  
                     
+=======
+                            
+                        </tr>  
+                        @else
+                        <h2 class="text-danger text-center">No tickets found</h2>
+                            <style>
+                                .hideTableWhenEmpty{
+                                    display:none;
+                                }
+                            </style>
+                        @endif  
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
                         @empty
                             <h2 class="text-danger text-center">No tickets found</h2>
                             <style>
@@ -78,7 +99,11 @@
                                     display:none;
                                 }
                             </style>
+<<<<<<< HEAD
                          @endforelse  
+=======
+                        @endforelse 
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
                          
                     </tbody>
                   </table>

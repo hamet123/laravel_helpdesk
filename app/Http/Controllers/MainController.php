@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Attachment;
+<<<<<<< HEAD
 use App\Models\UserInfo;
 
+=======
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
 
 
 class MainController extends Controller
@@ -52,8 +55,12 @@ class MainController extends Controller
     public function getMyProfile(){
         if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
+<<<<<<< HEAD
             $userDetails = $userData->attachedInfo;
             return view("userPages.myProfile")->with("user",$userData)->with("userDetails",$userDetails);
+=======
+            return view("userPages.myProfile")->with("user",$userData);
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
         }
         else{
             return redirect("/login")->with("loginError","Please Login First to view your Profile");
@@ -156,7 +163,11 @@ public function getTicket($id){
         if($foundTicket->user_id == session('uid')){
             $foundTicket->status = 'closed';
             $foundTicket->save();
+<<<<<<< HEAD
             return redirect('/closed-tickets')->with('ticketClosedSuccessfully','Ticket has been closed successfully');
+=======
+            return redirect('/user-dashboard')->with('ticketClosedSuccessfully','Ticket has been closed successfully');
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
         }
         else {
             return "Your are not authorised to close this ticket";
@@ -168,7 +179,11 @@ public function getTicket($id){
         if($foundTicket->user_id == session('uid')){
             $foundTicket->status = 'pending';
             $foundTicket->save();
+<<<<<<< HEAD
             return redirect('/pending-tickets')->with('ticketReopenedSuccessfully','Ticket has been Re-Opened successfully');
+=======
+            return redirect('/user-dashboard')->with('ticketReopenedSuccessfully','Ticket has been Re-Opened successfully');
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
         }
         else {
             return "Your are not authorised to re-open this ticket";
@@ -183,6 +198,7 @@ public function getTicket($id){
         }
     }
 
+<<<<<<< HEAD
     // public function uploadProfilePic(Request $req){
     //     if(Session::has('uid')){
     //         $userData = User::find(Session::get('uid'));
@@ -296,4 +312,6 @@ public function getTicket($id){
         return redirect("/login")->with("loginError","Please Login First");
     }
 }
+=======
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
 }

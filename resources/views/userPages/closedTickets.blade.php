@@ -34,6 +34,7 @@
                             <th>Ticket ID</th>
                             <th>Created By</th>
                             <th>Status</th>
+<<<<<<< HEAD
                             <th>Re-Open Ticket</th>
                         </tr>
                     </thead>
@@ -75,6 +76,48 @@
                     </tbody>
                 </table>
                 
+=======
+                           <th>Re-Open Ticket</th>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($tickets as $ticket)
+                        @if ($ticket['status']=='closed')
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $ticket['subject'] }}</td>
+                            <td>{{ $ticket['select_department'] }}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
+                            <td style=" font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
+                            <td>{{ $user['name'] }}</td>
+                            <td>{{ $ticket['status'] }}</td>
+                            
+                            @if ($ticket['status'] == 'closed')
+                            <td><a href="/ticket/reopen/{{ $ticket['id'] }}" class="btn btn-primary">Re-Open</a></td>
+                            @endif
+                        </tr>  
+                        @else
+                        <h2 class="text-danger text-center">No tickets found</h2>
+                            <style>
+                                .hideTableWhenEmpty{
+                                    display:none;
+                                }
+                            </style>
+                        @endif  
+                        @empty
+                            <h2 class="text-danger text-center">No tickets found</h2>
+                            <style>
+                                .hideTableWhenEmpty{
+                                    display:none;
+                                }
+                            </style>
+                        @endforelse 
+                         
+                    </tbody>
+                  </table>
+>>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
             </div>
         </div>
     </div>

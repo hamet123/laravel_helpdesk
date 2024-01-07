@@ -68,7 +68,12 @@ class UserController extends Controller
             $user = User::where('email',$validatedUserCredentials['email'])->get()->toArray();
             $req->session()->put('uid',$user[0]['id']);
             $req->session()->flash('loginSuccess','You have Successfully Logged In');
-            return redirect("/user-dashboard");
+            if($user[0]['role']=='admin'){
+                return "admin dashboard";
+            }
+            if($user[0]['role']== 'user'){
+                return redirect("/user-dashboard");
+            }
         }
         else {
             return redirect("/login")->withErrors(['login' => 'Invalid credentials']);;
@@ -101,5 +106,26 @@ class UserController extends Controller
     else{
         return redirect('/login')->with('LoginError','Please Login First');
     }
+}
+
+
+public function createDummyUsers(){
+    $user = User::create([
+        'name'=> 'User',
+        'email'=> 'ayush_94@live.com', 
+        'password'=> '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
+        'role'=> 'user',
+        'username'=> 'hamet123',
+    ]);
+
+    $adminUser = User::create([
+        'name'=> 'Admin',
+        'email'=> 'ayushsood965@gmail.com', 
+        'password'=> '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
+        'role'=> 'admin',
+        'username'=> 'ayush965',
+    ]);
+
+    return "User Account and Admin account created successfully - admin ID - ayushsood965@gmail.com Password - 1 / user Id - ayush_94@live.com, Password - 1";
 }
 }

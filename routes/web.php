@@ -22,6 +22,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/login','loginUser');
     Route::get('/logout','logoutUser')->name('logout');
     Route::post('/change-password','changePassword');
+    Route::get('create-users','createDummyUsers');
 });
 
 Route::controller(MainController::class)->group(function(){
@@ -37,7 +38,6 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
     Route::post('/edit-ticket','editTicket');
     Route::get('/ticket/reopen/{id}','reOpenTicket')->name('reOpenTicket');
-
     Route::post('upload-profile-pic','uploadProfilePic');
     Route::post('/edit-profile','editProfile');
     Route::post('/update-profile','updateProfile');

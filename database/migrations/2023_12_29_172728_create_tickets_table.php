@@ -15,7 +15,6 @@ return new class extends Migration
 
             // $table->unsignedBigInteger('id')->unique()->default(rand(994392343,999999999));
             $table->id()->startingFrom(987364523);
-            $table->unsignedBigInteger('id')->unique()->default(rand(994392343,999999999));
             $table->foreignId('user_id')->constrained('users');
             $table->string('subject');
             $table->string('select_department');

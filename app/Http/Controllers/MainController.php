@@ -285,12 +285,12 @@ public function getTicket($id){
 
             $infoToUpdate = UserInfo::find($userInfoId);
             $req->validate([
-                "phone" => "required|numeric",
-                "address" => "required",
-                "facebook" => "required|url",
-                "twitter" => "required|url",
-                "instagram" => "required|url",
-                "youtube" => "required|url"
+                "phone" => "nullable|numeric",
+                "address" => "nullable",
+                "facebook" => "nullable|url",
+                "twitter" => "nullable|url",
+                "instagram" => "nullable|url",
+                "youtube" => "nullable|url"
             ]);
 
             $infoToUpdate->phone = $req->phone;

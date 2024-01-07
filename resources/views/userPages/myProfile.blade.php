@@ -93,6 +93,19 @@
 
 
 @section('usercontent')
+@php
+    if($userDetails==NULL){
+        $userDetails = [
+            'user_id'=> NULL,
+            'phone'=>"",
+            'address'=>"",
+            'facebook'=>"",
+            'twitter'=>"",
+            'instagram'=>"",
+            'youtube'=>"",
+        ];
+    }
+@endphp
 <div class="container parentdiv mt-5">
     <div class="row">
         <div class="col-md-4 firsthalfdiv">

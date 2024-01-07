@@ -22,9 +22,5 @@ public function attachedUser(){
     public function attachedAttachments(){
     return $this->hasMany(Attachment::class);
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
 }

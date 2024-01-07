@@ -23,10 +23,9 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
-<<<<<<< HEAD
         'profile_pic_path',
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
+
     ];
 
     /**
@@ -52,10 +51,9 @@ class User extends Authenticatable
     public function attachedTickets(){
         return $this->hasMany(Ticket::class);
     }
-<<<<<<< HEAD
+
     public function attachedInfo(){
         return $this->hasOne(UserInfo::class);
     }
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
+
 }

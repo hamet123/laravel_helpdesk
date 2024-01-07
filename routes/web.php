@@ -36,13 +36,10 @@ Route::controller(MainController::class)->group(function(){
     Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
     Route::post('/edit-ticket','editTicket');
     Route::get('/ticket/reopen/{id}','reOpenTicket')->name('reOpenTicket');
-<<<<<<< HEAD
+
     Route::post('upload-profile-pic','uploadProfilePic');
     Route::post('/edit-profile','editProfile');
     Route::post('/update-profile','updateProfile');
-
-=======
->>>>>>> 1df1e2c7563e8d608581982f739a7ac006ab6e86
     
 });
 

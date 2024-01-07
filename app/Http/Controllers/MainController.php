@@ -266,6 +266,11 @@ public function getTicket($id){
                 "instagram" => $req->instagram,
                 "youtube" => $req->youtube,
             ]);
+
+            // Updating User Full Name
+            $userData->name = $req->name;
+            $userData->save();
+
             return redirect('/my-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
         } else {
             return redirect("/login")->with("loginError","Please Login First");
@@ -295,6 +300,10 @@ public function getTicket($id){
             $infoToUpdate->instagram = $req->instagram;
             $infoToUpdate->youtube = $req->youtube;
             $infoToUpdate->save();
+
+             // Updating User Full Name
+             $userData->name = $req->name;
+             $userData->save();
             return redirect('/my-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
     } else {
         return redirect("/login")->with("loginError","Please Login First");

@@ -81,5 +81,11 @@
   <strong>{{ session('profileUpdatedSuccessfully') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+@endif
 
+@if (session('passwordChangedSuccess'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('passwordChangedSuccess') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif

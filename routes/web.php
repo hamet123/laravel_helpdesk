@@ -21,6 +21,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/register','registerUser');
     Route::post('/login','loginUser');
     Route::get('/logout','logoutUser')->name('logout');
+    Route::post('/change-password','changePassword');
 });
 
 Route::controller(MainController::class)->group(function(){

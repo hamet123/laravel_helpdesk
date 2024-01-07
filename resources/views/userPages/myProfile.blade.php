@@ -273,6 +273,7 @@
                         </div>
                     </div>
                 </form>
+             
                     {{-- <div class="row">
 
                         <div class="row my-1">
@@ -291,21 +292,38 @@
                     @csrf
 
                         <h5 class="text-white  mt-5 mb-2">Change Your Password</h5>
-                        <div class="row" style="border-radius:10px; border:1px solid rgb(173, 173, 173); padding:20px;">
+                        <hr>
+                        <div class="row" style="padding;20px;">
+                            <div class="col-md-4">
+                                <input type="password" name="current_password" class="form-control" id="current_password" placeholder="Enter Current Password">
+                            </div>
                             <div class="col-md-4">
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Enter New Password">
                             </div>
                             <div class="col-md-4">
                                 <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm New Password">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 my-3">
                                 <input type="submit" value="Change Password" class="btn btn-success">
                             </div>
+                            @error('password_confirmation')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            
+                            @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            
+                            @error('wrongCurrentPassword')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <hr>
                         </div>
                     </form>
-                
             </div>
         </div>
+        
+        
     </div>
 </div>
 @endsection

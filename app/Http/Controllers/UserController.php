@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -80,4 +82,24 @@ class UserController extends Controller
         return redirect('/login');
     }
 
+    public function changePassword(Request $req){
+        if(Session::has('uid')){
+            $user = User::find(Session::get('uid'));
+            $req->validate([
+                'current_password'=> 'required',
+                'password'=> 'required|confirmed',
+                'password_confirmation'=> 'required',  
+            ]);
+
+            if(Hash::check($req->current_password,$user->password)){
+                $user->password = Hash::make($req->password);
+                $user->save();
+                return redirect('/my-profile')->with('passwordChangedSuccess','Your Password has been changed successfully');
+            }
+                else return redirect('/my-profile')->withErrors(['wrongCurrentPassword'=> 'You have entered incorrect current password']);
+    }
+    else{
+        return redirect('/login')->with('LoginError','Please Login First');
+    }
+}
 }

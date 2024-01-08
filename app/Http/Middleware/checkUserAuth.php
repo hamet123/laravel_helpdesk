@@ -8,25 +8,21 @@ use Symfony\Component\HttpFoundation\Response;
 use \App\Models\User;
 use Illuminate\Support\Facades\Session;
 
-class checkUserAuth
+class CheckUserAuth
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        // Exclude the login route from the middleware
-        if ($request->routeIs('login')) {
-            return $next($request);
-        }
 
+        // Your existing logic to check user authentication
         $user = User::find(Session::get("uid"));
-        if(Session::has('uid') && ($user->role == 'user')) {
+        if (Session::has('uid') && ((Session::get('role')=='user')||(Session::get('role')=='admin'))) {
             return $next($request);
         } else {
-            return redirect('/login')->with('loginError', 'Please Login first in order to access this page.');
+            if (Session::has('uid')) {
+                return redirect('/')->with('loginError', 'You do not have permissions to access this page.');
+            } else {
+                return redirect('/login')->with('loginError', 'Please Login First to View this Page.');
+            }
         }
     }
 }

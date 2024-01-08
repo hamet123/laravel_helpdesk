@@ -19,59 +19,35 @@ class MainController extends Controller
         return  view("home");
     }
     public function getAllTickets(Request $req){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'))->toArray();
             $ticketsData = Ticket::where('user_id',$userData['id'])->get()->toArray();
             return view("userPages.dashboard")->with("user",$userData)->with("tickets",$ticketsData);
-        }
-        else {
-            return redirect("/login")->withErrors("loginFirst","Please login First");
-        }
         
     }
     public function getPendingTickets(){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $tickets=$userData->attachedTickets;
             return view("userPages.pendingTickets")->with("user",$userData)->with("tickets",$tickets);
-        }
-        else{
-            return redirect("/login")->with("loginError","Please Login First to view all pending Tickets");
-        }
+    
     }
     public function getClosedTickets(){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $tickets = $userData->attachedTickets;
             return view("userPages.closedTickets")->with("user",$userData)->with("tickets",$tickets);
-        }
-        else{
-            return redirect("/login")->with("loginError","Please Login First to view all closed Tickets");
-        }
     }
     public function getMyProfile(){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $userDetails = $userData->attachedInfo;
             return view("userPages.myProfile")->with("user",$userData)->with("userDetails",$userDetails);
-            return view("userPages.myProfile")->with("user",$userData);
         }
-        else{
-            return redirect("/login")->with("loginError","Please Login First to view your Profile");
-        }
-    }
+    
     public function getCreateTicket(){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             return view("userPages.createTicket")->with("user",$userData);
         }
-        else{
-            return redirect("/login")->with("loginError","Please Login First to Raise a Ticket");
-        }
-    }
+    
 
     public function createTicket(Request $req){
-        if(Session::has("uid")){
             $userData = User::find(Session::get("uid"));
             $validatedTicket=$req->validate([
                 "subject" => "required",
@@ -104,26 +80,16 @@ class MainController extends Controller
           
             $req->session()->flash('ticketRaisedSuccessfully','Ticket has been raised successfully');
            return redirect('/user-dashboard');
-            
-            
-        } else{
-            $req->session()->flash("loginError","Please Login First");
-            return redirect("/login");
-        }
+       
     }
     
 public function getTicket($id){
-        if(Session::has("uid")){
             $userData = User::find(Session::get("uid"));
             $ticket = Ticket::find($id);
             $ticketUser = $ticket->attachedUser;
             $ticketAttachments = $ticket->attachedAttachments;
             return view('userPages.ticket')->with('ticket', $ticket)->with('ticketUser', $ticketUser)->with('ticketAttachments', $ticketAttachments);
-        }
-        else {
-            return redirect("/login")->with("loginError","Please Login First to View a Ticket");
-        }
-
+       
 }
 
     public function editTicket(Request $req){
@@ -178,13 +144,12 @@ public function getTicket($id){
         }
     }
     public function getEditTicketPage($id, Request $req){
-        if(Session::has('uid')){
             $findTicket = Ticket::find($id);
             $user = $findTicket->attachedUser;
             $attachments = $findTicket->attachedAttachments;
             return view('userPages.editTicket')->with('ticket',$findTicket)->with('user',$user)->with('attachments',$attachments);
         }
-    }
+    
 
 
     // public function uploadProfilePic(Request $req){
@@ -215,7 +180,6 @@ public function getTicket($id){
     // }
     
     public function uploadProfilePic(Request $req){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $validatedData = $req->validate([
                 "file" => "nullable|file|max:2048",
@@ -237,14 +201,11 @@ public function getTicket($id){
             } else {
                 return redirect('/my-profile')->with('noFileError', 'No File Selected');
             }
-        } else {
-            return "You are not allowed to update this profile picture";
-        }
+        
     }
     
 
     public function editProfile(Request $req){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $req->validate([
                 "email" => "nullable|email",
@@ -272,13 +233,10 @@ public function getTicket($id){
             $userData->save();
 
             return redirect('/my-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
-        } else {
-            return redirect("/login")->with("loginError","Please Login First");
-        }
+       
     }
 
     public function updateProfile(Request $req){
-        if(Session::has('uid')){
             $userData = User::find(Session::get('uid'));
             $userDetails = $userData->attachedInfo;
             $userInfoId = $userDetails->id;
@@ -305,9 +263,7 @@ public function getTicket($id){
              $userData->name = $req->name;
              $userData->save();
             return redirect('/my-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
-    } else {
-        return redirect("/login")->with("loginError","Please Login First");
-    }
+    
 }
 
 }

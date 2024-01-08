@@ -28,8 +28,9 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/admin-dashboard','adminDashboard')->name('adminDashboard');
 });
 
-Route::controller(MainController::class)->group(function(){
-        Route::get('/','getHome')->name('home');
+Route::middleware('checkUserAuth')->group(function(){
+    Route::controller(MainController::class)->group(function(){
+        
         Route::get('/user-dashboard','getAllTickets')->name('allTickets');
         Route::get('/pending-tickets','getPendingTickets')->name('pendingTickets');
         Route::get('/closed-tickets','getClosedTickets')->name('closedTickets');
@@ -45,34 +46,6 @@ Route::controller(MainController::class)->group(function(){
         Route::post('/edit-profile','editProfile');
         Route::post('/update-profile','updateProfile');   
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::get('/', [MainController::class,'getHome']);
-// Route::get('/login', [UserController::class,'getLoginPage']);
-// Route::get('/register', [UserController::class,'getRegisterPage']);
-// Route::post('/register', [UserController::class,'registerUser']);
-// Route::get('/user-dashboard', [MainController::class,'getAllTickets']);
-// Route::post('/login', [UserController::class,'loginUser']);
-// Route::get('/logout',[UserController::class,'logoutUser']);
-// Route::get('/pending-tickets',[MainController::class,'getPendingTickets']);
-// Route::get('/closed-tickets',[MainController::class,'getClosedTickets']);
-// Route::get('/my-profile',[MainController::class,'getMyProfile']);
-// Route::get('/create-ticket',[MainController::class,'createTicket']);
+});    
+    
+Route::get('/',[MainController::class,'getHome'])->name('home');

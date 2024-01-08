@@ -65,13 +65,15 @@ class UserController extends Controller
         ]);
 
         if(Auth::attempt($validatedUserCredentials)){
-            $user = User::where('email',$validatedUserCredentials['email'])->get()->toArray();
-            $req->session()->put('uid',$user[0]['id']);
+            $user = User::where('email',$validatedUserCredentials['email'])->first();
+            $req->session()->put('uid',$user->id);
+            $req->session()->put('role',$user->role);
+
             $req->session()->flash('loginSuccess','You have Successfully Logged In');
-            if($user[0]['role']=='admin'){
-                return "admin dashboard";
+            if($user->role=='admin'){
+                return redirect("/admin-dashboard");
             }
-            if($user[0]['role']== 'user'){
+            if($user->role== 'user'){
                 return redirect("/user-dashboard");
             }
         }
@@ -127,5 +129,10 @@ public function createDummyUsers(){
     ]);
 
     return "User Account and Admin account created successfully - admin ID - ayushsood965@gmail.com Password - 1 / user Id - ayush_94@live.com, Password - 1";
+}
+
+
+public function adminDashboard(){
+    return view("adminPages.adminDashboard");
 }
 }

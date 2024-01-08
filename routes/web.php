@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use \App\Http\MiddleWare\checkUserAuth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,25 +25,25 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/logout','logoutUser')->name('logout');
     Route::post('/change-password','changePassword');
     Route::get('create-users','createDummyUsers');
+    Route::get('/admin-dashboard','adminDashboard')->name('adminDashboard');
 });
 
 Route::controller(MainController::class)->group(function(){
-    Route::get('/','getHome')->name('home');
-    Route::get('/user-dashboard','getAllTickets')->name('allTickets');
-    Route::get('/pending-tickets','getPendingTickets')->name('pendingTickets');
-    Route::get('/closed-tickets','getClosedTickets')->name('closedTickets');
-    Route::get('/my-profile','getMyProfile')->name('myProfile');
-    Route::get('/create-ticket','getCreateTicket')->name('getCreateTicket');
-    Route::post('/create-ticket','createTicket');
-    Route::get('ticket/{id}','getTicket')->name('getTicket');
-    Route::get('/ticket/edit/{id}','getEditTicketPage')->name('editTicket');
-    Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
-    Route::post('/edit-ticket','editTicket');
-    Route::get('/ticket/reopen/{id}','reOpenTicket')->name('reOpenTicket');
-    Route::post('upload-profile-pic','uploadProfilePic');
-    Route::post('/edit-profile','editProfile');
-    Route::post('/update-profile','updateProfile');
-    
+        Route::get('/','getHome')->name('home');
+        Route::get('/user-dashboard','getAllTickets')->name('allTickets');
+        Route::get('/pending-tickets','getPendingTickets')->name('pendingTickets');
+        Route::get('/closed-tickets','getClosedTickets')->name('closedTickets');
+        Route::get('/my-profile','getMyProfile')->name('myProfile');
+        Route::get('/create-ticket','getCreateTicket')->name('getCreateTicket');
+        Route::post('/create-ticket','createTicket');
+        Route::get('ticket/{id}','getTicket')->name('getTicket');
+        Route::get('/ticket/edit/{id}','getEditTicketPage')->name('editTicket');
+        Route::get('/ticket/close/{id}','closeTicket')->name('closeTicket');
+        Route::post('/edit-ticket','editTicket');
+        Route::get('/ticket/reopen/{id}','reOpenTicket')->name('reOpenTicket');
+        Route::post('upload-profile-pic','uploadProfilePic');
+        Route::post('/edit-profile','editProfile');
+        Route::post('/update-profile','updateProfile');   
 });
 
 

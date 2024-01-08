@@ -1,1 +1,2 @@
-<h1>Welcome to Admin Dashboard</h1>
+@extends('adminPages.adminPageMasterLayout')
+@section('title') Admin Dashboard @endsection

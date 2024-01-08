@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
         Schema::create('tickets', function (Blueprint $table) {
-
-            // $table->unsignedBigInteger('id')->unique()->default(rand(994392343,999999999));
-            $table->id()->startingFrom(987364523);
+            $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('subject');
             $table->string('select_department');
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE tickets AUTO_INCREMENT = 987364523');
     }
 
     /**

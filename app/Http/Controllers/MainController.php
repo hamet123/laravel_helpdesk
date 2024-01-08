@@ -116,6 +116,9 @@ public function getTicket($id){
             return redirect('/user-dashboard')->with('ticketUpdatedSuccessfully', 'Ticket has been updated successfully');
            
         }
+        else {
+            return redirect('/')->with('loginError','You are not authorized to do this action.');
+        }
     }
 
     public function closeTicket($id, Request $req){

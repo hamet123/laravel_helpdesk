@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function getHome(){
+        return  view("home");
+    }
+
     public function getLoginPage(){
         if(session()->has('uid')){
             return redirect("/");

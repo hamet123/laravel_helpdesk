@@ -17,7 +17,12 @@
               Activites
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/user-dashboard">Dashboard</a></li>
+              @if (Session::has('uid') && Session::get('role') == 'user')
+              <li><a class="dropdown-item" href="{{ route('userDashboard') }}">Dashboard</a></li>
+              @endif
+              @if (Session::has('uid') && Session::get('role') == 'admin')
+              <li><a class="dropdown-item" href="{{ route('adminDashboard') }}">Dashboard</a></li>
+              @endif 
               <li><a class="dropdown-item" href="#">Chat Forums</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Knowledge Base</a></li>

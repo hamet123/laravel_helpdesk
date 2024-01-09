@@ -51,17 +51,9 @@
     <div class="row">
         <div class="col-md-3 mt-5">
             <div class="sidemenu">
-                {{-- <ul class="">
-                    <li class="manageAgents"><a href="/manage-agents">Create and Manage Agents</a></li>
-                    <li class="manageDepartments"><a href="/manage-departments">Create and Manage Departments</a></li>
-                    <li class="manageTicketStatuses"><a href="/manage-ticket-statuses">Create and Manage Ticket Status</a></li>
-                    <li class="adminProfile"><a href="/admin-profile">Manage Your Profile</a></li>
-                    <li class="searchAgentsAndUsers"><a href="search-agents-and-users">Search Agents/Users</a></li>
-                </ul> --}}
-
                 <ul class="">
-                    <a href="/manage-agents"><li class="manageAgents">Create and Manage Agents</li></a>
                     <a href="/manage-departments"><li class="manageDepartments">Create and Manage Departments</li></a>
+                    <a href="/manage-agents"><li class="manageAgents">Create and Manage Agents</li></a>
                     <a href="/manage-ticket-statuses"><li class="manageTicketStatuses">Create and Manage Ticket Statuses</li></a>
                     <a href="/admin-profile"><li class="adminProfile">Manage Your Profile</li></a>
                     <a href="search-ticket"><li class="searchTicket">Search a Ticket</li></a>

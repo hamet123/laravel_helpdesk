@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class adminController extends Controller
 {
@@ -24,7 +26,9 @@ class adminController extends Controller
     }
 
     public function adminProfile(){
-        return view("adminPages.adminProfile");
+        $userData = User::find(Session::get('uid'));
+        $userDetails = $userData->attachedInfo;
+        return view("adminPages.adminProfile")->with("user",$userData)->with("userDetails",$userDetails);
     }
 
     public function searchAgentsAndUsers(){

@@ -15,9 +15,7 @@ use App\Models\UserInfo;
 
 class MainController extends Controller
 {
-    public function getHome(){
-        return  view("home");
-    }
+   
     public function getAllTickets(Request $req){
             $userData = User::find(Session::get('uid'))->toArray();
             $ticketsData = Ticket::where('user_id',$userData['id'])->get()->toArray();

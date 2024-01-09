@@ -27,12 +27,14 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/logout','logoutUser')->name('logout');
     Route::post('/change-password','changePassword');
     Route::get('create-users','createDummyUsers');
+    Route::get('/','getHome')->name('home');
+
 });
 
 Route::middleware('checkUserAuth')->group(function(){
     Route::controller(MainController::class)->group(function(){
         
-        Route::get('/user-dashboard','getAllTickets')->name('allTickets');
+        Route::get('/user-dashboard','getAllTickets')->name('userDashboard');
         Route::get('/pending-tickets','getPendingTickets')->name('pendingTickets');
         Route::get('/closed-tickets','getClosedTickets')->name('closedTickets');
         Route::get('/my-profile','getMyProfile')->name('myProfile');
@@ -49,7 +51,6 @@ Route::middleware('checkUserAuth')->group(function(){
 });
 });    
     
-Route::get('/',[MainController::class,'getHome'])->name('home');
 
 
 Route::controller(AdminController::class)->group(function(){

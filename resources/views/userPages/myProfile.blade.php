@@ -286,20 +286,6 @@
                         </div>
                     </div>
                 </form>
-             
-                    {{-- <div class="row">
-
-                        <div class="row my-1">
-                            <div class="col-md-12 p-3" style="border-radius:10px; border-bottom:1px solid rgb(173, 173, 173);">
-                                <ul class="d-flex p-0 justify-content-around align-items-center" style="list-style:none;">
-                                <li class="text-white">Total Tickets Raised : 23</li>
-                                <li class="text-white">Pending Tickets : 8</li>
-                                <li class="text-white">Closed Tickets : 0</li>
-                                </ul>
-                            </div>
-                        </div>
-<<<<<<< HEAD
-                    </div> --}}
 
                     <form action="/change-password" method="POST">
                     @csrf

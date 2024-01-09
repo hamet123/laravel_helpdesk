@@ -30,5 +30,8 @@ class adminController extends Controller
     public function searchAgentsAndUsers(){
         return view("adminPages.searchAgentsAndUsers");
     }
-    
+
+    public function searchTicket(){
+        return view("adminPages.searchTicket");
+    }
 }

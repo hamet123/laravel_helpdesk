@@ -59,6 +59,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/manage-ticket-statuses','manageTicketStatuses')->name('manageTicketStatuses');
     Route::get('/admin-profile','adminProfile')->name('adminProfile');
     Route::get('/search-agents-and-users','searchAgentsAndUsers')->name('searchAgentsAndUsers');
+    Route::get('/search-ticket','searchTicket')->name('searchTicket');
 });
 
 

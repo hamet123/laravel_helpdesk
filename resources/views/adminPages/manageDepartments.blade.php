@@ -1,5 +1,5 @@
 @extends('adminPages.adminPageMasterLayout')
-@section('title') Manage Agents @endsection
+@section('title') Manage Departments @endsection
 @push('customstyle')
    <style>
      .manageDepartments {

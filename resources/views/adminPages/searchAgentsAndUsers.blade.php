@@ -1,5 +1,5 @@
 @extends('adminPages.adminPageMasterLayout')
-@section('title') Manage Agents @endsection
+@section('title') Search Users @endsection
 @push('customstyle')
    <style>
      .searchAgentsAndUsers {

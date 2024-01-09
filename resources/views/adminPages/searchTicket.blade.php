@@ -1,12 +1,12 @@
 @extends('adminPages.adminPageMasterLayout')
-@section('title') Manage Statuses @endsection
+@section('title') Search Ticket @endsection
 @push('customstyle')
    <style>
-     .manageTicketStatuses {
+     .searchTicket {
         background: red;
     }
    </style>
 @endpush
 @section('content')
-   <h1>MANAGE Ticket Statuses Here</h1>
+   <h1>Search Ticket</h1>
 @endsection

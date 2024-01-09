@@ -64,12 +64,13 @@
                     <a href="/manage-departments"><li class="manageDepartments">Create and Manage Departments</li></a>
                     <a href="/manage-ticket-statuses"><li class="manageTicketStatuses">Create and Manage Ticket Statuses</li></a>
                     <a href="/admin-profile"><li class="adminProfile">Manage Your Profile</li></a>
+                    <a href="search-ticket"><li class="searchTicket">Search a Ticket</li></a>
                     <a href="search-agents-and-users"><li class="searchAgentsAndUsers">Search Agents/Users</li></a>
                 </ul>
             </div>
         </div>
-        <div class="col-md-9 mt-5">
-            <div style="background:rgba(0,0,0,0.7); min-height:70vh; padding:30px;">
+        <div class="col-md-9 my-5">
+            <div style="background:rgba(0,0,0,0.7); min-height:70vh; padding:30px; margin-bottom:50px;">
                 @yield('content')
             </div>
         </div>

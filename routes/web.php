@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use \App\Http\MiddleWare\checkUserAuth;
+use App\Http\Controllers\AdminController;
+
 
 
 /*
@@ -25,7 +27,6 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/logout','logoutUser')->name('logout');
     Route::post('/change-password','changePassword');
     Route::get('create-users','createDummyUsers');
-    Route::get('/admin-dashboard','adminDashboard')->name('adminDashboard');
 });
 
 Route::middleware('checkUserAuth')->group(function(){
@@ -49,3 +50,16 @@ Route::middleware('checkUserAuth')->group(function(){
 });    
     
 Route::get('/',[MainController::class,'getHome'])->name('home');
+
+
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/admin-dashboard','adminDashboard')->name('adminDashboard');
+    Route::get('/manage-agents','manageAgents')->name('manageAgents');
+    Route::get('/manage-departments','manageDepartments')->name('manageDepartments');
+    Route::get('/manage-ticket-statuses','manageTicketStatuses')->name('manageTicketStatuses');
+    Route::get('/admin-profile','adminProfile')->name('adminProfile');
+    Route::get('/search-agents-and-users','searchAgentsAndUsers')->name('searchAgentsAndUsers');
+});
+
+
+Route::fallback([UserController::class,'notFound'])->name('notFound');

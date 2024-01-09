@@ -52,7 +52,7 @@
   <strong>{{ session('ticketReopenedSuccessfully') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-<<<<<<< HEAD
+
 @endif
 
 @if (session('fileTypeError'))

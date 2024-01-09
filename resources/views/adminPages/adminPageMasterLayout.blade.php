@@ -13,7 +13,33 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>iDesk - @yield('title')</title>
     @stack('customstyle')
+   <style>
    
+   div.sidemenu {
+  
+}
+    .sidemenu ul{
+        list-style:none;
+        background:rgba(0,0,0,0.7);  
+        padding: 0px;
+        margin:0px; 
+    }
+    .sidemenu ul li {
+        color:white;
+        font-weight: 600;
+        
+        border:1px solid grey;
+        padding:20px;
+    }
+
+    .sidemenu ul a{
+        text-decoration:none;
+    }
+
+    .sidemenu ul li:hover{
+        background:rgb(226, 50, 50);
+    }
+   </style>
 </head>
 
 <body>
@@ -21,112 +47,33 @@
     
    @include('layouts.errorBoxes')
    
-    <div class="container mt-5">
-        <div class="row">
-
-        
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-all-tickets">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-ticket" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-10">
-                            <a href="/admin-dashboard" class="text-light"><span>All Tickets<span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-
-
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-create-ticket">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-plus" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-9">
-                            <a href="/manage-departments" class="text-light"><span>Manage Departments<span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-pending-tickets">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-ticket-simple" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-10">
-                            <a href="/manage-agents" class="text-light"><span>Manage Agents<span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-
-
-
-        
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-closed-tickets">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-clipboard-check" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-9">
-                            <a href="/ticket-status-master" class="text-light"><span>Ticket Status Master<span> </a>
-                        </div>
-                    </div>
-                </div>   
-            </div>
-       
-
-
-
-        
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-my-profile">
-                    <div class="row d-flex align-items-center justify-content-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-user" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-9">
-                            <a href="/my-profile" class="text-light"><span>My Profile<span> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-md-2">
-                <div class="navdiv navdiv-active-home">
-                    <div class="row d-flex align-items-center justify-content-center">
-                        <div class="col-xl-2">
-                            <i class="fa-solid fa-home" style="font-size: 1.73em;"></i>
-                        </div>
-                        <div class="col-xl-9">
-                            <a href="/search-agents-and-users" class="text-light"><span>Search Agent Users<span> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-       
-
-        </div>
-    </div>
-
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-12" style="height:auto; padding-bottom:100px;">
-            @yield('usercontent')
+        <div class="col-md-3 mt-5">
+            <div class="sidemenu">
+                {{-- <ul class="">
+                    <li class="manageAgents"><a href="/manage-agents">Create and Manage Agents</a></li>
+                    <li class="manageDepartments"><a href="/manage-departments">Create and Manage Departments</a></li>
+                    <li class="manageTicketStatuses"><a href="/manage-ticket-statuses">Create and Manage Ticket Status</a></li>
+                    <li class="adminProfile"><a href="/admin-profile">Manage Your Profile</a></li>
+                    <li class="searchAgentsAndUsers"><a href="search-agents-and-users">Search Agents/Users</a></li>
+                </ul> --}}
+
+                <ul class="">
+                    <a href="/manage-agents"><li class="manageAgents">Create and Manage Agents</li></a>
+                    <a href="/manage-departments"><li class="manageDepartments">Create and Manage Departments</li></a>
+                    <a href="/manage-ticket-statuses"><li class="manageTicketStatuses">Create and Manage Ticket Statuses</li></a>
+                    <a href="/admin-profile"><li class="adminProfile">Manage Your Profile</li></a>
+                    <a href="search-agents-and-users"><li class="searchAgentsAndUsers">Search Agents/Users</li></a>
+                </ul>
+            </div>
         </div>
-   </div>
+        <div class="col-md-9 mt-5">
+            <div style="background:rgba(0,0,0,0.7); min-height:70vh; padding:30px;">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 </div>
 
    

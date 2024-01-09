@@ -15,7 +15,7 @@ class CheckUserAuth
 
         // Your existing logic to check user authentication
         $user = User::find(Session::get("uid"));
-        if (Session::has('uid') && ((Session::get('role')=='user')||(Session::get('role')=='admin'))) {
+        if (Session::has('uid') && (Session::get('role')=='user')) {
             return $next($request);
         } else {
             if (Session::has('uid')) {

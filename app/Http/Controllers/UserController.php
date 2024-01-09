@@ -132,7 +132,7 @@ public function createDummyUsers(){
 }
 
 
-public function adminDashboard(){
-    return view("adminPages.adminDashboard");
+public function notFound(){
+    return view('errors.404');
 }
 }

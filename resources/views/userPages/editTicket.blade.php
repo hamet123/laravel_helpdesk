@@ -28,8 +28,8 @@
         </div>
         <div class="mb-1">
             <label for="select_department" class="form-label">Select Department</label>
-            <input type="text" class="form-control" id="select_department" name="select_department" value="{{ $ticket['select_department'] }}" >
-            <span class="text-danger">@error('select_department') {{ $message }} @enderror</span>
+            <input type="text" class="form-control" id="department" name="department" value="{{ $ticket['department'] }}" >
+            <span class="text-danger">@error('department') {{ $message }} @enderror</span>
         </div>
         <div class="mb-1">
             <label for="subject" class="form-label">Subject</label>

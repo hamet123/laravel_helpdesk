@@ -139,4 +139,23 @@ public function createDummyUsers(){
 public function notFound(){
     return view('errors.404');
 }
+
+public function createAgent(Request $req){
+    $validatedAgent = $req->validate([
+        'name'=> 'required',
+        'email'=> 'required|unique:users,email|email',
+        'username'=> 'required|unique:users,username',
+        'department'=> 'required',
+        'password'=> 'required|confirmed',
+        'password_confirmation'=> 'required',
+    ]);
+    
+    $validatedAgent['role']='agent';
+    if(User::create($validatedAgent)){
+        return redirect('/manage-agents')->with('agentCreatedSuccessfully','Agent created successfully');
+    } else {
+        return redirect('/manage-agents')->with('agentCreationFailed','Agent Creation Failed');
+    }
+
+}
 }

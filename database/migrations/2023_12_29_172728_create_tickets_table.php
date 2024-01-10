@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('subject');
-            $table->string('select_department');
+            $table->string('department');
             $table->text('description');
             $table->string('status')->default('pending');
             $table->timestamps();

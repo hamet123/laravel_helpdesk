@@ -52,7 +52,6 @@
   <strong>{{ session('ticketReopenedSuccessfully') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-
 @endif
 
 @if (session('fileTypeError'))
@@ -86,6 +85,48 @@
 @if (session('passwordChangedSuccess'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>{{ session('passwordChangedSuccess') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('departmentCreatedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('departmentCreatedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('departmentCreationFailed'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('departmentCreationFailed') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('departmentUpdatedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('departmentUpdatedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('departmentDeletedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('departmentDeletedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('agentCreatedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('agentCreatedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('agentCreationFailed'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('agentCreationFailed') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif

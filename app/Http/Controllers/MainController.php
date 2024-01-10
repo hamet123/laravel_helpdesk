@@ -49,14 +49,14 @@ class MainController extends Controller
             $userData = User::find(Session::get("uid"));
             $validatedTicket=$req->validate([
                 "subject" => "required",
-                "select_department" => "required",
+                "department" => "required",
                 "description" => "required",
             ]);
             
             
             Ticket::create([
                 "subject"           => $validatedTicket["subject"],
-                "select_department" => $validatedTicket["select_department"],
+                "department"        => $validatedTicket["department"],
                 "user_id"           => Session::get("uid"),
                 "description"       => $validatedTicket["description"],
                 "status"            => "pending",
@@ -95,7 +95,7 @@ public function getTicket($id){
         if($ticket->user_id == session('uid')) {
            $validatedTicket = $req->validate([
             "subject" => "required",
-            "select_department" => "required",
+            "department" => "required",
             "description" => "required",
            ]);
            $ticket->update($validatedTicket);

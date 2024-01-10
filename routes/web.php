@@ -28,6 +28,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/change-password','changePassword');
     Route::get('create-users','createDummyUsers');
     Route::get('/','getHome')->name('home');
+    Route::post('create-agent','createAgent');
 
 });
 
@@ -61,6 +62,10 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/admin-profile','adminProfile')->name('adminProfile');
     Route::get('/search-agents-and-users','searchAgentsAndUsers')->name('searchAgentsAndUsers');
     Route::get('/search-ticket','searchTicket')->name('searchTicket');
+    Route::post('/create-department','createDepartment');
+    Route::get('/edit-department/{id}','getEditDepartment');
+    Route::post('/edit-department','editDepartment');
+    Route::get('/delete-department/{id}','deleteDepartment');
 });
 
 

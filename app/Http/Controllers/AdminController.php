@@ -14,9 +14,10 @@ class adminController extends Controller
         return view("adminPages.adminDashboard");
     }
 
-    public function manageAgents(){
+    public function manageAgents(Request $req){
         $departments = Department::all();
         $agents = User::where('role','=','agent')->get()->toArray();
+        $req->session()->put('editAgent', false);
         return view("adminPages.manageAgents")->with("departments",$departments)->with('agents',$agents);
     }
 
@@ -78,5 +79,33 @@ class adminController extends Controller
         $department = Department::find($id);
         $department->delete();
         return redirect('/manage-departments')->with('departmentDeletedSuccessfully','Department deleted successfully');
+    }
+
+    public function getEditAgent($id, Request $req){
+        $agentDetails = User::find($id);
+        $departments = Department::all();
+        $agents = User::where('role','=','agent')->get()->toArray();
+        $req->session()->put('editAgent', true);
+        return view('adminPages.manageAgents', ['agentDetails' => $agentDetails])->with('agents', $agents)->with('departments', $departments);
+    }
+
+    public function editAgent(Request $req){
+        $validatedAgent = $req->validate([
+            'name' =>'required',
+            'department' =>'required',
+        ]);
+        $agent = User::find($req->id);
+        if($agent->update($validatedAgent)){
+            return redirect('/manage-agents')->with('agentUpdatedSuccessfully','Agent updated successfully');
+        } else{
+            return redirect('/manage-agents')->with('agentUpdateFailed','Agent update failed');
+        }
+        
+
+    }
+    public function deleteAgent($id){
+        $agent = User::find($id);
+        $agent->delete();
+        return redirect('/manage-agents')->with('agentDeletedSuccessfully','Agent deleted successfully');
     }
 }

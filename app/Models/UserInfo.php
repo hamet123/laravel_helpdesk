@@ -20,7 +20,6 @@ class UserInfo extends Model
         'facebook',
         'twitter',
         'instagram',
-        'youtube',
-        
+        'youtube',  
     ];
 }

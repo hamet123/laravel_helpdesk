@@ -22,7 +22,7 @@
 
     <div class="container mt-5 ticketDiv">
         <div class="row">
-            <div class=" table-responsive">
+            <div class="table-responsive">
                 <table class="table text-white hideTableWhenEmpty">
                     <thead>
                         <tr>

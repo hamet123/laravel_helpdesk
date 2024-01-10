@@ -23,4 +23,8 @@ public function attachedUser(){
     return $this->hasMany(Attachment::class);
 }
 
+public function linkedStatus(){
+    return $this->hasOne(Status::class);
+}
+
 }

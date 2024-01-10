@@ -73,11 +73,11 @@
    @endif
 
    <div class="row listdiv my-5">
-      <div class="col-md-12">
+      <div class="col-md-12 table-responsive">
          <div>
             <h2 class="text-white text-center">List of Departments</h2>
             <hr>
-            <table class="table table-responsive mt-5">
+            <table class="table mt-5">
                <thead>
                   <tr>
                      <th scope="col">Serial Number</th>
@@ -90,7 +90,7 @@
                      <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $department->department }}</td>
-                        <td>
+                        <td style="min-width:200px;">
                            <a href="/edit-department/{{ $department->id }}" class="btn btn-primary">Edit</a>
                            <a href="/delete-department/{{ $department->id }}" class="btn btn-danger">Delete</a>
                         </td>
@@ -101,7 +101,6 @@
                     </tr>
                   @endforelse
                </tbody>
-            </table>
             </table>
          </div>
       </div>

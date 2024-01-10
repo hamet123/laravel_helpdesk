@@ -66,6 +66,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/edit-department/{id}','getEditDepartment');
     Route::post('/edit-department','editDepartment');
     Route::get('/delete-department/{id}','deleteDepartment');
+    Route::get('/edit-agent/{id}','getEditAgent');
+    Route::post('/edit-agent','editAgent');
+    Route::get('/delete-agent/{id}','deleteAgent');
 });
 
 

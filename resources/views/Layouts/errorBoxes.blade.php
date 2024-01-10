@@ -130,3 +130,24 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+
+@if (session('agentUpdatedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('agentUpdatedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('agentUpdateFailed'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('agentUpdateFailed') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('agentDeletedSuccessfully'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('agentDeletedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif

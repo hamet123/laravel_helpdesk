@@ -69,6 +69,10 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/edit-agent/{id}','getEditAgent');
     Route::post('/edit-agent','editAgent');
     Route::get('/delete-agent/{id}','deleteAgent');
+    Route::post('/create-ticket-status','createTicketStatus');
+    Route::post('/edit-ticket-status','editTicketStatus');
+    Route::get('/edit-ticket-status/{id}','getEditTicketStatus')->name('getEditTicketStatus');
+    Route::get('/delete-ticket-status/{id}','deleteTicketStatus')->name('deleteTicketStatus');
 });
 
 

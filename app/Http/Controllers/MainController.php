@@ -9,8 +9,16 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Attachment;
+use App\Models\Status;
 use App\Models\UserInfo;
 
+function getPendingStatusId(){
+    $statuses = Status::all();
+    foreach($statuses as $status){
+        if($status->status_name == 'pending'){
+       return $status->id;
+    }}
+}
 
 
 class MainController extends Controller
@@ -54,12 +62,13 @@ class MainController extends Controller
             ]);
             
             
+        
             Ticket::create([
                 "subject"           => $validatedTicket["subject"],
                 "department"        => $validatedTicket["department"],
-                "user_id"           => Session::get("uid"),
+                "user_id"           => $userData['id'],
                 "description"       => $validatedTicket["description"],
-                "status"            => "pending",
+                "status_id"         => getPendingStatusId(),
             ]);
 
             $validatedAttachments = $req->validate([

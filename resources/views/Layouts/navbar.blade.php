@@ -1,17 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(0, 0, 0, 0.7);">
+<nav class="navbar navbar-expand-lg d-flex align-items-center navbar-dark" style="background: rgba(0, 0, 0, 0.7);">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Navbar</a>
+      <a class="navbar-brand" href="/"><img height="30px" width="30px" src="{{ asset('images/logo.png') }}" alt="">   iDesk</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            @if (Session::has('uid') && (Session::get('role')=='user'))
+              <a class="nav-link active" aria-current="page" href="/my-profile">Hi, {{ Session::get('name') }}</a>
+            @endif
+            @if (Session::has('uid') && (Session::get('role')=='admin'))
+              <a class="nav-link active" aria-current="page" href="/admin-profile">Hi, {{ Session::get('name') }}</a>
+            @endif
+            
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link active" href="#">Link</a>
-          </li>
+          </li> --}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Activites

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('subject');
-            $table->string('department');
+            $table->foreignId('department_id')->constrained('departments');
             $table->text('description');
-            $table->string('status')->default('pending');
+            $table->foreignId('status_id')->constrained('statuses');
             $table->timestamps();
         });
         DB::statement('ALTER TABLE tickets AUTO_INCREMENT = 987364523');

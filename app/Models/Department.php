@@ -11,4 +11,9 @@ class Department extends Model
     protected $fillable = [
         'department',
     ];
+
+    public function linkedTickets(){
+        return $this->belongsToMany(Ticket::class,'id','department_id');
+    }
 }
+

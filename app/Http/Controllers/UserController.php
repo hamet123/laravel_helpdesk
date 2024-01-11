@@ -55,8 +55,10 @@ class UserController extends Controller
 
     
         User::create($validatedUser);
-        $user = User::where('username',$req->username)->get()->toArray();
-        $req->session()->put("uid", $user[0]['id']); 
+        $user = User::where('username',$req->username)->first();
+        $req->session()->put("uid", $user->id); 
+        $req->session()->put("role", $user->role);
+        $req->session()->put("name", $user->name); 
         $req->session()->flash('loginRegister','Your account has been created successfully.');
 
         return redirect("/user-dashboard");
@@ -72,7 +74,7 @@ class UserController extends Controller
             $user = User::where('email',$validatedUserCredentials['email'])->first();
             $req->session()->put('uid',$user->id);
             $req->session()->put('role',$user->role);
-
+            $req->session()->put("name", $user->name); 
             $req->session()->flash('loginSuccess','You have Successfully Logged In');
             if($user->role=='admin'){
                 return redirect("/admin-dashboard");

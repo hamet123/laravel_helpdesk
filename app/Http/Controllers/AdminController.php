@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Status;
 use Illuminate\Support\Facades\Session;
 
 class adminController extends Controller
@@ -27,8 +28,10 @@ class adminController extends Controller
         return view("adminPages.manageDepartments")->with('departments',$departments);
     }
 
-    public function manageTicketStatuses(){
-        return view("adminPages.manageTicketStatuses");
+    public function manageTicketStatuses(Request $req){
+        $statuses = Status::all();
+        $req->session()->put('editStatus',false);
+        return view("adminPages.manageTicketStatuses")->with('statuses',$statuses);
     }
 
     public function adminProfile(){
@@ -107,5 +110,17 @@ class adminController extends Controller
         $agent = User::find($id);
         $agent->delete();
         return redirect('/manage-agents')->with('agentDeletedSuccessfully','Agent deleted successfully');
+    }
+    public function createTicketStatus(Request $req){
+        $validatedStatus = $req->validate([
+            'status_name' => 'required|unique:statuses,status_name',
+        ]);
+
+        if(Status::create($validatedStatus)){
+            return redirect('/manage-ticket-statuses')->with('statusCreatedSuccessfully','Status created successfully');
+    } 
+    else{
+        return redirect('/manage-ticket-statuses')->with('statusCreationFailed','Status creation failed');
+    }
     }
 }

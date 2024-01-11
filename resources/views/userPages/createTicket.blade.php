@@ -35,7 +35,7 @@ label{
           <span class="text-danger">@error('email') {{ $message }} @enderror</span>
         </div>
         <div class="mb-1">
-            <label for="select_department" class="form-label">Select Department</label>
+            <label for="department" class="form-label">Select Department</label>
             <input type="text" class="form-control" id="department" name="department" value="" >
             <span class="text-danger">@error('department') {{ $message }} @enderror</span>
         </div>

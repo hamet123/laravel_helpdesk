@@ -1,5 +1,9 @@
 @extends("userPages.userPageMasterLayout")
 @section('title') Closed Tickets @endsection
+@php
+use App\Models\Status;
+use App\Models\Department;
+@endphp
 @push('customstyle')
 <style>
 .navdiv-active-closed-tickets {
@@ -43,7 +47,7 @@
                         @endphp
                 
                         @forelse ($tickets as $ticket)
-                            @if ($ticket['status'] == 'closed')
+                            @if (Status::find($ticket['status_id'])['status_name'] == 'closed')
                                 @php
                                     $serialNumber++;
                                 @endphp
@@ -51,13 +55,13 @@
                                 <tr>
                                     <td>{{ $serialNumber }}</td>
                                     <td>{{ $ticket['subject'] }}</td>
-                                    <td>{{ $ticket['select_department'] }}</td>
+                                    <td>{{ Department::find($ticket['department_id'])['department'] }}</td>
                                     <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
                                     <td style="font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
                                     <td>{{ $user['name'] }}</td>
-                                    <td>{{ $ticket['status'] }}</td>
+                                    <td>{{ Status::find($ticket['status_id'])['status_name'] }}</td>
                                     
-                                    @if ($ticket['status'] == 'closed')
+                                    @if (Status::find($ticket['status_id'])['status_name'] == 'closed')
                                         <td><a href="/ticket/reopen/{{ $ticket['id'] }}" class="btn btn-primary">Re-Open</a></td>
                                     @endif
                                 </tr>

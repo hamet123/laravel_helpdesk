@@ -1,5 +1,8 @@
 @extends('adminPages.adminPageMasterLayout')
 @section('title') Manage Agents @endsection
+@php
+   use App\Models\Department;
+@endphp
 @push('customstyle')
    <style>
      .manageAgents {
@@ -52,16 +55,16 @@
                      <span class="text-danger">{{ $message }}</span>
                      @enderror
                      <div class="mb-3">
-                        <label for="department" class="form-label">Select Department</label>
+                        <label for="department_id" class="form-label">Select Department</label>
                         
-                           <select class="form-select form-select" name="department" id="department">
+                           <select class="form-select form-select" name="department_id" id="department_id">
                               <option value="" selected>Select Department</option>
                               @foreach ($departments as $department)
-                              <option value="{{ $department['department'] }}">{{ $department['department'] }}</option>
+                              <option value="{{ $department['id'] }}">{{ $department['department'] }}</option>
                               @endforeach
                            </select>
                      </div>
-                     @error('department')
+                     @error('department_id')
                         <span class="text-danger">{{ $message }}</span>
                      @enderror
                      <div class="mb-3">
@@ -117,16 +120,16 @@
                      <span class="text-danger">{{ $message }}</span>
                      @enderror
                      <div class="mb-3">
-                        <label for="department" class="form-label">Select Department</label>
+                        <label for="department_id" class="form-label">Select Department</label>
                         
-                           <select class="form-select form-select" name="department" id="department">
-                              <option value="{{ $agentDetails['department'] }}" selected>{{ $agentDetails['department'] }}</option>
+                           <select class="form-select form-select" name="department_id" id="department_id">
+                              <option value="{{ $agentDetails['department_id'] }}" selected>{{ Department::find($agentDetails['department_id'])['department'] }}</option>
                               @foreach ($departments as $department)
-                              <option value="{{ $department['department'] }}">{{ $department['department'] }}</option>
+                              <option value="{{ $department['id'] }}">{{ $department['department'] }}</option>
                               @endforeach
                            </select>
                      </div>
-                     @error('department')
+                     @error('department_id')
                         <span class="text-danger">{{ $message }}</span>
                      @enderror
                      <button type="submit" class="btn btn-success">Update</button>
@@ -144,7 +147,7 @@
             <table class="table">
                <thead>
                   <tr>
-                     <th scope="col">Serial Number</th>
+                     <th scope="col">Sr. No.</th>
                      <th scope="col">Full Name</th>
                      <th scope="col">Email</th>
                      <th scope="col">Username</th>
@@ -159,7 +162,7 @@
                      <td>{{ $agent['name'] }}</td>
                      <td>{{ $agent['email'] }}</td>
                      <td>{{ $agent['username'] }}</td>
-                     <td>{{ $agent['department'] }}</td>
+                     <td>{{ Department::find($agent['department_id'])['department'] }}</td>
                      <td style="min-width:200px;">
                         <a href="/edit-agent/{{ $agent['id'] }}" class="btn btn-primary">Edit</a>
                         <a href="/delete-agent/{{ $agent['id'] }}" class="btn btn-danger">Delete</a>
@@ -167,7 +170,7 @@
                   </tr>
                   @empty
                   <tr>
-                     <td colspan="5" class="text-center">No Agent found</td>
+                     <td colspan="8" class="text-center">No Agent found</td>
                  </tr>
                   @endforelse
                </tbody>

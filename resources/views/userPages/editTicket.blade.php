@@ -1,5 +1,8 @@
 @extends("Layouts.masterLayout")
 @section('title') Ticket - {{ $ticket['subject'] }} @endsection
+@php
+  use App\Models\Department;
+@endphp
 @push('customstyle')
 <style>
    
@@ -26,11 +29,16 @@
           <input type="email" class="form-control" id="email" name="email" value="{{ $user["email"] }}" disabled>
           <span class="text-danger">@error('email') {{ $message }} @enderror</span>
         </div>
-        <div class="mb-1">
-            <label for="select_department" class="form-label">Select Department</label>
-            <input type="text" class="form-control" id="department" name="department" value="{{ $ticket['department'] }}" >
-            <span class="text-danger">@error('department') {{ $message }} @enderror</span>
-        </div>
+        <div class="mb-3">
+          <label for="department_id" class="form-label">Select Department</label>
+          <select class="form-select form-select" name="department_id" id="department_id">
+            <option value="{{ Department::find($ticket['department_id'])['id'] }}" selected>{{ Department::find($ticket['department_id'])['department'] }}</option>
+            @foreach ($departments as $department)
+            <option value="{{ $department['id'] }}">{{ $department['department'] }}</option>
+            @endforeach
+         </select>
+          @error('department_id') <span class="text-danger my-3">{{ $message }}</span> @enderror
+      </div>
         <div class="mb-1">
             <label for="subject" class="form-label">Subject</label>
             <input type="text" class="form-control" id="subject" name="subject" value="{{ $ticket['subject'] }}" >

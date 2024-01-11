@@ -19,35 +19,40 @@ label{
     <form action="/create-ticket" method="POST" enctype="multipart/form-data">
         @csrf
         <h2 class="text-center text-light">Raise a Ticket</h2><hr class="mb-4">
-        <div class="mb-1">
+        <div class="mb-3">
             <label for="name" class="form-label">Full Name</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ $user["name"] }}" disabled>
-            <span class="text-danger">@error('name') {{ $message }} @enderror</span>
+            @error('name') <span class="text-danger my-3">{{ $message }}</span> @enderror
           </div>
-          <div class="mb-1">
+          <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username" value="{{ $user["username"] }}" disabled>
-            <span class="text-danger">@error('username') {{ $message }} @enderror</span>
+            @error('username') <span class="text-danger my-3">{{ $message }}</span>  @enderror
           </div>
-        <div class="mb-1">
+        <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
           <input type="email" class="form-control" id="email" name="email" value="{{ $user["email"] }}" disabled>
-          <span class="text-danger">@error('email') {{ $message }} @enderror</span>
+          @error('email') <span class="text-danger my-3">{{ $message }}</span> @enderror
         </div>
-        <div class="mb-1">
-            <label for="department" class="form-label">Select Department</label>
-            <input type="text" class="form-control" id="department" name="department" value="" >
-            <span class="text-danger">@error('department') {{ $message }} @enderror</span>
+        <div class="mb-3">
+            <label for="department_id" class="form-label">Select Department</label>
+            <select class="form-select form-select" name="department_id" id="department_id">
+              <option value="" selected>Select Department</option>
+              @foreach ($departments as $department)
+              <option value="{{ $department['id'] }}">{{ $department['department'] }}</option>
+              @endforeach
+           </select>
+            @error('department_id') <span class="text-danger my-3">{{ $message }}</span> @enderror
         </div>
-        <div class="mb-1">
+        <div class="mb-3">
             <label for="subject" class="form-label">Subject</label>
             <input type="text" class="form-control" id="subject" name="subject" value="" >
-            <span class="text-danger">@error('subject') {{ $message }} @enderror</span>
+            @error('subject') <span class="text-danger my-3">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Explain your issue</label>
             <textarea  class="form-control" id="description" name="description" id="" cols="30" rows="10"></textarea>
-            <span class="text-danger">@error('description') {{ $message }} @enderror</span>
+            @error('description') <span class="text-danger my-3">{{ $message }}</span> @enderror
           </div>
           <div class="mb-3">
             <label for="attachments" class="form-label">Attachments</label>

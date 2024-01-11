@@ -146,7 +146,7 @@
 @endif
 
 @if (session('agentDeletedSuccessfully'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>{{ session('agentDeletedSuccessfully') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
@@ -162,6 +162,34 @@
 @if (session('statusCreationFailed'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
   <strong>{{ session('statusCreationFailed') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('statusUpdatedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('statusUpdatedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('statusUpdationFailed'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('statusUpdationFailed') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('statusDeletedSuccessfully'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ session('statusDeletedSuccessfully') }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if (session('statusDeletionFailed'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{ session('statusDeletionFailed') }}</strong> 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif

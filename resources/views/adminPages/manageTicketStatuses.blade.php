@@ -14,20 +14,20 @@
     .table{
       color:white;
     }
+    .createStatus, .updateStatus, .showStatus {
+      background:rgba(0,0,0,0.5);
+      padding:50px;
+    }
     
    </style>
 @endpush
 @section('content')
-@php
-   if(isset($statusDetails)){
-      $statusDetails['status_name']= "";
-   }
-@endphp
+
 <div class="container">
    <div class="row d-flex justify-content-center mb-5 mt-3">
-      <div class="col-md-8">
+      <div class="col-md-12">
          @if(!(Session::get('editStatus')))
-         <div>
+         <div class="createStatus">
             <h2 class="text-center text-white">Create Ticket Status</h2>
             <hr class="mb-5">
             <form action="/create-ticket-status" method="POST">
@@ -45,7 +45,7 @@
          @endif
 
          @if (Session::get('editStatus') && isset($statusDetails))
-         <div>
+         <div class="updateStatus">
             <h2 class="text-center text-white">Edit Ticket Status</h2>
             <hr class="mb-5">
             <form action="/edit-ticket-status" method="POST">
@@ -67,8 +67,10 @@
    </div>
 
    <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 showStatus">
          <div class="table-responsive">
+            <h2 class="text-white text-center">List of Ticket Statuses</h2>
+            <hr>
             <table class="table">
                <thead>
                   <tr>
@@ -78,7 +80,7 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($statuses as $status)
+                  @forelse ($statuses as $status)
                   <tr>
                      <th scope="row">{{ $loop->iteration }}</th>
                      <td>{{ $status->status_name }}</td>
@@ -87,7 +89,11 @@
                         <a href="/delete-ticket-status/{{ $status->id }}" class="btn btn-danger">Delete</a>
                      </td>
                   </tr>
-                  @endforeach
+                  @empty
+                  <tr>
+                     <td colspan="5" class="text-center">No Status found</td>
+                 </tr>
+                  @endforelse
                </tbody>
             </table>
          </div>

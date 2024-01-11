@@ -1,5 +1,9 @@
 @extends("userPages.userPageMasterLayout")
 @section('title') Dashboard @endsection
+@php
+use App\Models\Status;
+use App\Models\Department;
+@endphp
 @push('customstyle')
 <style>
 .navdiv-active-all-tickets {
@@ -47,11 +51,11 @@
                         <tr>
                             <td>{{ $serialNumber }}</td>
                             <td>{{ $ticket['subject'] }}</td>
-                            <td>{{ $ticket['select_department'] }}</td>
+                            <td>{{ Department::find($ticket['department_id'])['department'] }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
                             <td style=" font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
                             <td>{{ $user['name'] }}</td>
-                            <td>{{ $ticket['status'] }}</td>
+                            <td>{{ Status::find($ticket['status_id'])['status_name'] }}</td>
                             
                         </tr>  
                         @else

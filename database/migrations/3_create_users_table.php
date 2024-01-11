@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('department_id')->constrained('departments')->nullable();
+            $table->foreignId('department_id')->contrained('departments')->default(1);
             $table->string('profile_pic_path')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -147,7 +147,7 @@ public function createAgent(Request $req){
         'name'=> 'required',
         'email'=> 'required|unique:users,email|email',
         'username'=> 'required|unique:users,username',
-        'department'=> 'required',
+        'department_id'=> 'required',
         'password'=> 'required|confirmed',
         'password_confirmation'=> 'required',
     ]);

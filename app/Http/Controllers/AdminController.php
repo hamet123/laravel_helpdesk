@@ -95,7 +95,7 @@ class adminController extends Controller
     public function editAgent(Request $req){
         $validatedAgent = $req->validate([
             'name' =>'required',
-            'department' =>'required',
+            'department_id' =>'required',
         ]);
         $agent = User::find($req->id);
         if($agent->update($validatedAgent)){
@@ -122,5 +122,34 @@ class adminController extends Controller
     else{
         return redirect('/manage-ticket-statuses')->with('statusCreationFailed','Status creation failed');
     }
+    }
+
+    public function editTicketStatus(Request $req){
+        $validatedStatus = $req->validate([
+            'status_name'=> 'required|unique:statuses,status_name',
+        ]);
+        $status = Status::find($req->id);
+        if($status->update($validatedStatus)){
+            return redirect('/manage-ticket-statuses')->with('statusUpdatedSuccessfully','Ticket status updated successfully');
+        } else {
+            return redirect('/manage-ticket-statuses')->with('statusUpdationFailed','Unable to update status');
+        }
+    }
+
+
+    public function getEditTicketStatus($id,Request $req){
+        $statusDetails = Status::find($id);
+        $statuses = Status::all();
+        $req->session()->put('editStatus', true);
+        return view('adminPages.manageTicketStatuses', ['statusDetails' => $statusDetails])->with('statuses',$statuses);
+    }
+
+    public function deleteTicketStatus($id,Request $req){
+        $status = Status::find($id);
+        if($status->delete()){
+            return redirect('/manage-ticket-statuses')->with('statusDeletedSuccessfully','Status deleted successfully');
+        } else {
+            return redirect('/manage-ticket-statuses')->with('statusDeletionFailed','Status deletion failed');
+        }
     }
 }

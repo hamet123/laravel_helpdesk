@@ -1,5 +1,9 @@
 @extends("userPages.userPageMasterLayout")
 @section('title') Pending Tickets @endsection
+@php
+use App\Models\Status;
+use App\Models\Department;
+@endphp
 @push('customstyle')
 <style>
 .navdiv-active-pending-tickets {
@@ -44,25 +48,25 @@
                     <tbody>
                        
                         @forelse ($tickets as $ticket)
-                        @if ($ticket['status']!=='closed')
+                        @if ( Status::find($ticket['status_id'])['status_name'] !=='closed')
                         @php $serialNumber++; @endphp
                         <tr>
                             <td>{{ $serialNumber }}</td>
                             <td>{{ $ticket['subject'] }}</td>
-                            <td>{{ $ticket['select_department'] }}</td>
+                            <td>{{ Department::find($ticket['department_id'])['department'] }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($ticket['description'], 15) }}</td>
                             <td style=" font-size:18px;"><a class="text-danger" href="/ticket/{{ $ticket['id'] }}">{{ $ticket['id'] }}</a></td>
                             <td>{{ $user['name'] }}</td>
-                            <td>{{ $ticket['status'] }}</td>
+                            <td>{{ Status::find($ticket['status_id'])['status_name'] }}</td>
                             <td>
-                                @if ($ticket['status'] !== 'closed')
+                                @if (Status::find($ticket['status_id'])['status_name'] !== 'closed')
                                 <a class="btn btn-success" href="/ticket/edit/{{ $ticket['id'] }}">Edit</a>
                                 @else
                                 <a class="btn btn-success" href="#" style="cursor:not-allowed; background:grey" disabled>Already Closed</a>
                                 @endif
                                 </td>
                             <td>
-                                @if ($ticket['status'] !== 'closed')
+                                @if (Status::find($ticket['status_id'])['status_name'] !== 'closed')
                                 <a class="btn btn-danger" href="/ticket/close/{{ $ticket['id'] }}">Close</a>
                                 @else
                                 <a class="btn btn-danger" href="#" style="cursor:not-allowed; background:grey" disabled>Already Closed</a>

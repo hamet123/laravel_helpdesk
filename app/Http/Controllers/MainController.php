@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Attachment;
+use App\Models\Department;
 use App\Models\Status;
 use App\Models\UserInfo;
 
@@ -19,27 +20,40 @@ function getPendingStatusId(){
        return $status->id;
     }}
 }
+function getClosedStatusId(){
+    $statuses = Status::all();
+    foreach($statuses as $status){
+        if($status->status_name == 'closed'){
+       return $status->id;
+    }}
+}
 
 
 class MainController extends Controller
 {
    
     public function getAllTickets(Request $req){
+            $statuses = Status::all();
+            $departments = Department::all();
             $userData = User::find(Session::get('uid'))->toArray();
             $ticketsData = Ticket::where('user_id',$userData['id'])->get()->toArray();
-            return view("userPages.dashboard")->with("user",$userData)->with("tickets",$ticketsData);
+            return view("userPages.dashboard")->with("user",$userData)->with("tickets",$ticketsData)->with("statuses",$statuses)->with('departments',$departments);
         
     }
     public function getPendingTickets(){
+            $statuses = Status::all();
+            $departments = Department::all();
             $userData = User::find(Session::get('uid'));
             $tickets=$userData->attachedTickets;
-            return view("userPages.pendingTickets")->with("user",$userData)->with("tickets",$tickets);
+            return view("userPages.pendingTickets")->with("user",$userData)->with("tickets",$tickets)->with("statuses",$statuses)->with('departments',$departments);
     
     }
     public function getClosedTickets(){
+            $statuses = Status::all();
+            $departments = Department::all();
             $userData = User::find(Session::get('uid'));
             $tickets = $userData->attachedTickets;
-            return view("userPages.closedTickets")->with("user",$userData)->with("tickets",$tickets);
+            return view("userPages.closedTickets")->with("user",$userData)->with("tickets",$tickets)->with("statuses",$statuses)->with('departments',$departments);
     }
     public function getMyProfile(){
             $userData = User::find(Session::get('uid'));
@@ -48,8 +62,9 @@ class MainController extends Controller
         }
     
     public function getCreateTicket(){
+            $departments = Department::all();
             $userData = User::find(Session::get('uid'));
-            return view("userPages.createTicket")->with("user",$userData);
+            return view("userPages.createTicket")->with("user",$userData)->with("departments",$departments);
         }
     
 
@@ -57,7 +72,7 @@ class MainController extends Controller
             $userData = User::find(Session::get("uid"));
             $validatedTicket=$req->validate([
                 "subject" => "required",
-                "department" => "required",
+                "department_id" => "required",
                 "description" => "required",
             ]);
             
@@ -65,7 +80,7 @@ class MainController extends Controller
         
             Ticket::create([
                 "subject"           => $validatedTicket["subject"],
-                "department"        => $validatedTicket["department"],
+                "department_id"       => $validatedTicket["department_id"],
                 "user_id"           => $userData['id'],
                 "description"       => $validatedTicket["description"],
                 "status_id"         => getPendingStatusId(),
@@ -104,7 +119,7 @@ public function getTicket($id){
         if($ticket->user_id == session('uid')) {
            $validatedTicket = $req->validate([
             "subject" => "required",
-            "department" => "required",
+            "department_id" => "required",
             "description" => "required",
            ]);
            $ticket->update($validatedTicket);
@@ -131,7 +146,7 @@ public function getTicket($id){
     public function closeTicket($id, Request $req){
         $foundTicket = Ticket::find($id);
         if($foundTicket->user_id == session('uid')){
-            $foundTicket->status = 'closed';
+            $foundTicket->status_id = getClosedStatusId();
             $foundTicket->save();
             return redirect('/user-dashboard')->with('ticketClosedSuccessfully','Ticket has been closed successfully');
         }
@@ -143,7 +158,7 @@ public function getTicket($id){
     public function reOpenTicket($id, Request $req){
         $foundTicket = Ticket::find($id);
         if($foundTicket->user_id == session('uid')){
-            $foundTicket->status = 'pending';
+            $foundTicket->status_id = getPendingStatusId();
             $foundTicket->save();
 
             return redirect('/user-dashboard')->with('ticketReopenedSuccessfully','Ticket has been Re-Opened successfully');
@@ -155,9 +170,10 @@ public function getTicket($id){
     }
     public function getEditTicketPage($id, Request $req){
             $findTicket = Ticket::find($id);
+            $departments = Department::all();
             $user = $findTicket->attachedUser;
             $attachments = $findTicket->attachedAttachments;
-            return view('userPages.editTicket')->with('ticket',$findTicket)->with('user',$user)->with('attachments',$attachments);
+            return view('userPages.editTicket')->with('ticket',$findTicket)->with('user',$user)->with('attachments',$attachments)->with('departments',$departments);
         }
     
 

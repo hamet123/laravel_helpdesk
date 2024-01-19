@@ -80,10 +80,11 @@ class MainController extends Controller
         
             Ticket::create([
                 "subject"           => $validatedTicket["subject"],
-                "department_id"       => $validatedTicket["department_id"],
+                "department_id"     => $validatedTicket["department_id"],
                 "user_id"           => $userData['id'],
                 "description"       => $validatedTicket["description"],
                 "status_id"         => getPendingStatusId(),
+                "agent_id"          => Department::find($validatedTicket["department_id"])->linkedUser['id'],
             ]);
 
             $validatedAttachments = $req->validate([

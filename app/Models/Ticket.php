@@ -14,7 +14,7 @@ class Ticket extends Model
         'department_id',
         'status_id',
         'description',
-        
+        'agent_id',
     ];
 public function attachedUser(){
     return $this->belongsTo(User::class,'user_id','id');

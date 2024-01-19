@@ -124,6 +124,7 @@ public function createDummyUsers(){
         'password'=> '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
         'role'=> 'user',
         'username'=> 'hamet123',
+        'department_id' => NULL,
     ]);
 
     $adminUser = User::create([
@@ -132,6 +133,7 @@ public function createDummyUsers(){
         'password'=> '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
         'role'=> 'admin',
         'username'=> 'ayush965',
+        'department_id' => NULL,
     ]);
 
     return "User Account and Admin account created successfully - admin ID - ayushsood965@gmail.com Password - 1 / user Id - ayush_94@live.com, Password - 1";

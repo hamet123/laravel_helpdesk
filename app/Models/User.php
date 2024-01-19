@@ -25,8 +25,6 @@ class User extends Authenticatable
         'role',
         'profile_pic_path',
         'department_id',
-
-
     ];
 
     /**
@@ -57,4 +55,7 @@ class User extends Authenticatable
         return $this->hasOne(UserInfo::class);
     }
 
+    public function linkedDepartment(){
+        return $this->hasOne(Department::class);
+    }
 }

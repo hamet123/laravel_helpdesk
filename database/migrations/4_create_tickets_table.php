@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('subject');
             $table->foreignId('department_id')->constrained('departments');
             $table->text('description');
+            $table->foreignId('agent_id')->constrained('users');
             $table->foreignId('status_id')->constrained('statuses');
             $table->timestamps();
         });

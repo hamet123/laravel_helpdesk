@@ -15,5 +15,9 @@ class Department extends Model
     public function linkedTickets(){
         return $this->belongsToMany(Ticket::class,'id','department_id');
     }
+
+    public function linkedUser(){
+        return $this->belongsTo(User::class,'id','department_id');
+    }
 }
 

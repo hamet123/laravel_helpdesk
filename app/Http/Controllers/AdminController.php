@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Status;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Session;
 
 class adminController extends Controller
@@ -44,8 +45,8 @@ class adminController extends Controller
         return view("adminPages.searchAgentsAndUsers");
     }
 
-    public function searchTicket(){
-        return view("adminPages.searchTicket");
+    public function getSearchTicket(){
+        return view("adminPages.searchTicket")->with('searchTicketData', false);
     }
 
     public function createDepartment(Request $req){
@@ -150,6 +151,36 @@ class adminController extends Controller
             return redirect('/manage-ticket-statuses')->with('statusDeletedSuccessfully','Status deleted successfully');
         } else {
             return redirect('/manage-ticket-statuses')->with('statusDeletionFailed','Status deletion failed');
+        }
+    }
+
+    public function searchTicket(Request $req){
+        $validatedTicketNumber = $req->validate([
+            'ticket_no'=> 'required|integer',
+        ]);
+
+        $ticket = Ticket::find($req->ticket_no);
+
+        if($ticket){
+           $user = $ticket->attachedUser;
+           return view('adminPages.searchTicket', ['ticket' => $ticket, 'user'=>$user, 'searchTicketData'=> true]);
+        }
+        else {
+            return redirect('/search-ticket')->with('noTicketFound','No Record Found for this ticket number');
+        }
+    }
+
+
+   public function searchUser(Request $req){
+        $validatedUserIdentifier = $req->validate([
+            'user_identifier'=>'required',
+        ]);
+
+        $user = User::where('email','=',$req->user_identifier)->orWhere('username','=',$req->user_identifier)->orWhere('name','=',$req->user_identifier)->first();
+        if($user){
+            return view('adminPages.searchAgentsAndUsers',['user'=>$user]);
+        } else {
+            return redirect('/search-agents-and-users')->with('noUserFound','We could not find any users with the specified details.');
         }
     }
 }

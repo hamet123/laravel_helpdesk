@@ -36,7 +36,7 @@ class MainController extends Controller
             $statuses = Status::all();
             $departments = Department::all();
             $userData = User::find(Session::get('uid'))->toArray();
-            $ticketsData = Ticket::where('user_id',$userData['id'])->get()->toArray();
+            $ticketsData = Ticket::where('user_id',$userData['id'])->paginate(5);
             return view("userPages.dashboard")->with("user",$userData)->with("tickets",$ticketsData)->with("statuses",$statuses)->with('departments',$departments);
         
     }
@@ -44,15 +44,15 @@ class MainController extends Controller
             $statuses = Status::all();
             $departments = Department::all();
             $userData = User::find(Session::get('uid'));
-            $tickets=$userData->attachedTickets;
-            return view("userPages.pendingTickets")->with("user",$userData)->with("tickets",$tickets)->with("statuses",$statuses)->with('departments',$departments);
+            $tickets = Ticket::where('user_id', $userData->id)->where('status_id','=',getPendingStatusId())->paginate(5);
+            return view("userPages.pendingTickets",["tickets"=>$tickets])->with("user",$userData)->with("statuses",$statuses)->with('departments',$departments);
     
     }
     public function getClosedTickets(){
             $statuses = Status::all();
             $departments = Department::all();
             $userData = User::find(Session::get('uid'));
-            $tickets = $userData->attachedTickets;
+            $tickets = Ticket::where('user_id', $userData->id)->where('status_id','=',getClosedStatusId())->paginate(5);
             return view("userPages.closedTickets")->with("user",$userData)->with("tickets",$tickets)->with("statuses",$statuses)->with('departments',$departments);
     }
     public function getMyProfile(){

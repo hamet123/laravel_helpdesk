@@ -21,7 +21,9 @@ class TicketFactory extends Factory
             'user_id' => 1,
             'subject' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'select_department' => $this->faker->word,
+            'department_id' => 1,
+            'status_id' => 1,
+            'agent_id' => 1,
         ];
     }
 }

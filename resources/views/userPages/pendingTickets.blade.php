@@ -18,6 +18,9 @@ use App\Models\Department;
 .text-danger:hover{
     font-weight: bold;
 }
+#pagination p{
+    color:white !important;
+}
 </style>
   
 @endpush
@@ -43,12 +46,11 @@ use App\Models\Department;
                         </tr>
                     </thead>
                     @php
-                            $serialNumber=0;
+                           $serialNumber = ($tickets->currentPage() - 1) * $tickets->perPage();
                     @endphp
                     <tbody>
                        
                         @forelse ($tickets as $ticket)
-                        @if ( Status::find($ticket['status_id'])['status_name'] !=='closed')
                         @php $serialNumber++; @endphp
                         <tr>
                             <td>{{ $serialNumber }}</td>
@@ -72,8 +74,7 @@ use App\Models\Department;
                                 <a class="btn btn-danger" href="#" style="cursor:not-allowed; background:grey" disabled>Already Closed</a>
                                 @endif
                             </td>
-                         </tr>       
-                        @endif  
+                         </tr>  
                         @empty
                             <h2 class="text-danger text-center">No tickets found</h2>
                             <style>
@@ -83,9 +84,13 @@ use App\Models\Department;
                             </style>
                          @endforelse  
 
-                         
+                        
                     </tbody>
                   </table>
+
+                  <div class="text-center" id="pagination">
+                    {{ $tickets->links('pagination::bootstrap-5') }}
+                 </div>
             </div>
         </div>
     </div>

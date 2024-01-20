@@ -35,3 +35,26 @@ footer {
 .navdiv:hover {
     background: rgba(150, 45, 45, 0.9);
 }
+#pagination p {
+    color: white !important;
+}
+
+.pagination li a {
+background-color: rgba(38, 38, 38, 0.493) !important;
+color: white !important;
+border-color: grey !important;
+z-index: 0 !important;
+}
+
+.pagination li.active span {
+background-color: rgb(184, 21, 21) !important;
+color: white !important;
+border-color: grey !important;
+z-index: 0 !important;
+}
+
+.pagination li.disabled span {
+background-color: rgba(38, 38, 38, 0.481) !important;
+color: white !important;
+border-color: grey !important;
+}

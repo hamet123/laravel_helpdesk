@@ -24,6 +24,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/login', 'loginUser');
     Route::get('/logout', 'logoutUser')->name('logout');
     Route::post('/change-password', 'changePassword');
+    Route::post('/change-admin-password', 'changeAdminPassword');
     Route::get('create-users', 'createDummyUsers');
     Route::get('/', 'getHome')->name('home');
     Route::post('create-agent', 'createAgent');
@@ -37,7 +38,6 @@ Route::middleware('checkUserAuth')->group(function () {
         Route::get('/my-profile', 'getMyProfile')->name('myProfile');
         Route::get('/create-ticket', 'getCreateTicket')->name('getCreateTicket');
         Route::post('/create-ticket', 'createTicket');
-        Route::get('ticket/{id}', 'getTicket')->name('getTicket');
         Route::get('/ticket/edit/{id}', 'getEditTicketPage')->name('editTicket');
         Route::get('/ticket/close/{id}', 'closeTicket')->name('closeTicket');
         Route::post('/edit-ticket', 'editTicket');
@@ -69,6 +69,13 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/delete-ticket-status/{id}', 'deleteTicketStatus')->name('deleteTicketStatus');
     Route::post('/search-ticket', 'searchTicket')->name('searchTicket');
     Route::post('/search-user','searchUser')->name('searchUser');
+    Route::post('upload-admin-profile-pic', 'uploadAdminProfilePic');
+    Route::post('/edit-admin-profile', 'editAdminProfile');
+    Route::post('/update-admin-profile', 'updateAdminProfile');
+
 });
+
+// Misacallaneous Routes
+Route::get('/ticket/{id}', [MainController::class,'getTicket'])->name('getTicket');
 
 Route::fallback([UserController::class, 'notFound'])->name('notFound');

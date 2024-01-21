@@ -30,8 +30,11 @@
             padding: 50px;
         }
 
-        hr {
-            background: white;
+        .resultdiv{
+            width:50%;
+            border:1px solid grey;
+            border-radius:10px;
+            padding:30px;
         }
         table thead th {
             font-size:12px;
@@ -73,8 +76,10 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="row d-flex justify-content-center mt-5">
-                            <div class="col-xl-6">
-                                <h6>Ticket Number - {{ $ticket['id'] }}</h6>
+                            <div class="col-xl-6 resultdiv">
+                                <h2 class="text-center">Ticket Details</h2>
+                                <hr class="my-3">
+                                <h6>Ticket Number - <a href="/ticket/{{ $ticket['id'] }}" class="text-danger">{{ $ticket['id'] }}</a></h6>
                                 <hr class="my-3">
                                 <h6>Title - {{ $ticket['subject'] }}</h6>
                                 <hr class="my-3">

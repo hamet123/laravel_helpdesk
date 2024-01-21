@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Department;
 use App\Models\Status;
 use App\Models\Ticket;
+use App\Models\UserInfo;
 use Illuminate\Support\Facades\Session;
 
 class adminController extends Controller
@@ -177,10 +178,99 @@ class adminController extends Controller
         ]);
 
         $user = User::where('email','=',$req->user_identifier)->orWhere('username','=',$req->user_identifier)->orWhere('name','=',$req->user_identifier)->first();
+        $userDetails = $user->attachedInfo;
         if($user){
-            return view('adminPages.searchAgentsAndUsers',['user'=>$user]);
+            return view('adminPages.searchAgentsAndUsers',['user'=>$user, 'userDetails'=>$userDetails]);
         } else {
             return redirect('/search-agents-and-users')->with('noUserFound','We could not find any users with the specified details.');
         }
     }
+
+
+    public function uploadAdminProfilePic(Request $req){
+        $userData = User::find(Session::get('uid'));
+        $validatedData = $req->validate([
+            "file" => "nullable|file|max:2048",
+        ]);
+
+        if($req->hasFile('file')) {
+            $profilePic = $req->file('file');
+            $allowedExtensions = ['png', 'jpg', 'jpeg'];
+
+            // Check if the file extension is in the allowed list
+            if(in_array(strtolower($profilePic->getClientOriginalExtension()), $allowedExtensions)) {
+                $profilePicName = $profilePic->store('profile_pic', 'public');
+                $userData->profile_pic_path = $profilePicName;
+                $userData->save();
+                return redirect('/admin-profile')->with('profilePicUpdatedSuccessfully', 'Profile Picture has been updated successfully');
+            } else {
+                return redirect('/admin-profile')->with('fileTypeError', 'Invalid File Type');
+            }
+        } else {
+            return redirect('/admin-profile')->with('noFileError', 'No File Selected');
+        }
+    
+}
+
+
+public function editAdminProfile(Request $req){
+    $userData = User::find(Session::get('uid'));
+    $req->validate([
+        "email" => "nullable|email",
+        "name" => "nullable",
+        "phone" => "nullable|numeric",
+        "address" => "nullable",
+        "facebook" => "nullable|url",
+        "twitter" => "nullable|url",
+        "instagram" => "nullable|url",
+        "youtube" => "nullable|url"
+    ]);
+
+    UserInfo::create([
+        "user_id" => Session::get('uid'),
+        "phone" => $req->phone,
+        "address" => $req->address,
+        "facebook" => $req->facebook,
+        "twitter" => $req->twitter,
+        "instagram" => $req->instagram,
+        "youtube" => $req->youtube,
+    ]);
+
+    // Updating User Full Name
+    $userData->name = $req->name;
+    $userData->save();
+
+    return redirect('/admin-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
+
+}
+
+public function updateAdminProfile(Request $req){
+    $userData = User::find(Session::get('uid'));
+    $userDetails = $userData->attachedInfo;
+    $userInfoId = $userDetails->id;
+
+    $infoToUpdate = UserInfo::find($userInfoId);
+    $req->validate([
+        "phone" => "nullable|numeric",
+        "address" => "nullable",
+        "facebook" => "nullable|url",
+        "twitter" => "nullable|url",
+        "instagram" => "nullable|url",
+        "youtube" => "nullable|url"
+    ]);
+
+    $infoToUpdate->phone = $req->phone;
+    $infoToUpdate->address = $req->address;
+    $infoToUpdate->facebook = $req->facebook;
+    $infoToUpdate->twitter = $req->twitter;
+    $infoToUpdate->instagram = $req->instagram;
+    $infoToUpdate->youtube = $req->youtube;
+    $infoToUpdate->save();
+
+     // Updating User Full Name
+     $userData->name = $req->name;
+     $userData->save();
+    return redirect('/admin-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
+
+}
 }

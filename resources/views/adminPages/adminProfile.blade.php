@@ -6,10 +6,8 @@
         background: red;
     }
     
-} 
 .parentdiv{
-    background:rgba(0,0,0,0.7);
-    border-radius:10px;
+    background:rgba(0,0,0,0.5);
     padding:40px;
     height:auto;
     min-height:auto;
@@ -104,14 +102,14 @@ if($userDetails==NULL){
     ];
 }
 @endphp
-<div class="container parentdiv mt-5">
+<div class="container parentdiv mt-2">
 <div class="row">
     <div class="col-md-4 firsthalfdiv">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
                     @if ($user['profile_pic_path'] == NULL)
-                    <form action="/upload-profile-pic" method="POST" enctype="multipart/form-data" files="true">
+                    <form action="/upload-admin-profile-pic" method="POST" enctype="multipart/form-data" files="true">
                         @csrf
                         <label for="fileInput2" id="fileInputWrapper2">
                             <input type="file" id="fileInput2" name="file" accept="image/*">
@@ -119,7 +117,7 @@ if($userDetails==NULL){
                         <input type="submit" value="Upload" style="margin-top:20px; margin-left:10px;" class="btn btn-success">
                       </form>
                     @else
-                    <form action="/upload-profile-pic" method="POST" enctype="multipart/form-data" files="true">
+                    <form action="/upload-admin-profile-pic" method="POST" enctype="multipart/form-data" files="true">
                         @csrf
                         <label for="fileInput" id="fileInputWrapper">
                             <input type="file" id="fileInput" name="file" accept="image/*">
@@ -197,9 +195,9 @@ if($userDetails==NULL){
             <h4 class="text-white">Edit Profile</h4>
             <hr>
             @if ($userDetails['user_id']!==NULL)
-            <form action="/update-profile" method="POST">
+            <form action="/update-admin-profile" method="POST">
             @else
-            <form action="/edit-profile" method="POST">
+            <form action="/edit-admin-profile" method="POST">
             @endif 
                 @csrf
                 <div class="row my-3">
@@ -285,7 +283,7 @@ if($userDetails==NULL){
                 </div>
             </form>
 
-                <form action="/change-password" method="POST">
+                <form action="/change-admin-password" method="POST">
                 @csrf
 
                     <h5 class="text-white  mt-5 mb-2">Change Your Password</h5>

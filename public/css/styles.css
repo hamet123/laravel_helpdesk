@@ -54,7 +54,7 @@ z-index: 0 !important;
 }
 
 .pagination li.disabled span {
-background-color: rgba(38, 38, 38, 0.481) !important;
+background-color: rgba(111, 111, 111, 0.481) !important;
 color: white !important;
 border-color: grey !important;
 }

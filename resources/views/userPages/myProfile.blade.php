@@ -119,6 +119,9 @@
                                 <input type="file" id="fileInput2" name="file" accept="image/*">
                             </label>
                             <input type="submit" value="Upload" style="margin-top:20px; margin-left:10px;" class="btn btn-success">
+                            @error('file')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                           </form>
                         @else
                         <form action="/upload-profile-pic" method="POST" enctype="multipart/form-data" files="true">

@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
-use App\Http\MiddleWare\checkUserAuth;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgentController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use App\Http\Controllers\AdminController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/login', 'getLoginPage')->name('login');
@@ -48,34 +48,43 @@ Route::middleware('checkUserAuth')->group(function () {
     });
 });
 
-Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin-dashboard', 'adminDashboard')->name('adminDashboard');
-    Route::get('/manage-agents', 'manageAgents')->name('manageAgents');
-    Route::get('/manage-departments', 'manageDepartments')->name('manageDepartments');
-    Route::get('/manage-ticket-statuses', 'manageTicketStatuses')->name('manageTicketStatuses');
-    Route::get('/admin-profile', 'adminProfile')->name('adminProfile');
-    Route::get('/search-agents-and-users', 'searchAgentsAndUsers')->name('searchAgentsAndUsers');
-    Route::get('/search-ticket', 'getSearchTicket')->name('getSearchTicket');
-    Route::post('/create-department', 'createDepartment');
-    Route::get('/edit-department/{id}', 'getEditDepartment');
-    Route::post('/edit-department', 'editDepartment');
-    Route::get('/delete-department/{id}', 'deleteDepartment');
-    Route::get('/edit-agent/{id}', 'getEditAgent');
-    Route::post('/edit-agent', 'editAgent');
-    Route::get('/delete-agent/{id}', 'deleteAgent');
-    Route::post('/create-ticket-status', 'createTicketStatus');
-    Route::post('/edit-ticket-status', 'editTicketStatus');
-    Route::get('/edit-ticket-status/{id}', 'getEditTicketStatus')->name('getEditTicketStatus');
-    Route::get('/delete-ticket-status/{id}', 'deleteTicketStatus')->name('deleteTicketStatus');
-    Route::post('/search-ticket', 'searchTicket')->name('searchTicket');
-    Route::post('/search-user','searchUser')->name('searchUser');
-    Route::post('upload-admin-profile-pic', 'uploadAdminProfilePic');
-    Route::post('/edit-admin-profile', 'editAdminProfile');
-    Route::post('/update-admin-profile', 'updateAdminProfile');
+Route::middleware('checkAdminAuth')->group(function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/admin-dashboard', 'adminDashboard')->name('adminDashboard');
+        Route::get('/manage-agents', 'manageAgents')->name('manageAgents');
+        Route::get('/manage-departments', 'manageDepartments')->name('manageDepartments');
+        Route::get('/manage-ticket-statuses', 'manageTicketStatuses')->name('manageTicketStatuses');
+        Route::get('/admin-profile', 'adminProfile')->name('adminProfile');
+        Route::get('/search-agents-and-users', 'searchAgentsAndUsers')->name('searchAgentsAndUsers');
+        Route::get('/search-ticket', 'getSearchTicket')->name('getSearchTicket');
+        Route::post('/create-department', 'createDepartment');
+        Route::get('/edit-department/{id}', 'getEditDepartment');
+        Route::post('/edit-department', 'editDepartment');
+        Route::get('/delete-department/{id}', 'deleteDepartment');
+        Route::get('/edit-agent/{id}', 'getEditAgent');
+        Route::post('/edit-agent', 'editAgent');
+        Route::get('/delete-agent/{id}', 'deleteAgent');
+        Route::post('/create-ticket-status', 'createTicketStatus');
+        Route::post('/edit-ticket-status', 'editTicketStatus');
+        Route::get('/edit-ticket-status/{id}', 'getEditTicketStatus')->name('getEditTicketStatus');
+        Route::get('/delete-ticket-status/{id}', 'deleteTicketStatus')->name('deleteTicketStatus');
+        Route::post('/search-ticket', 'searchTicket')->name('searchTicket');
+        Route::post('/search-user', 'searchUser')->name('searchUser');
+        Route::post('upload-admin-profile-pic', 'uploadAdminProfilePic');
+        Route::post('/edit-admin-profile', 'editAdminProfile');
+        Route::post('/update-admin-profile', 'updateAdminProfile');
 
+    });
 });
 
+
+// Agent Routes
+Route::controller(AgentController::class)->group(function () {
+  Route::get('/agent-dashboard','getAgentDashboard');
+});
+
+
 // Misacallaneous Routes
-Route::get('/ticket/{id}', [MainController::class,'getTicket'])->name('getTicket');
+Route::get('/ticket/{id}', [MainController::class, 'getTicket'])->name('getTicket');
 
 Route::fallback([UserController::class, 'notFound'])->name('notFound');

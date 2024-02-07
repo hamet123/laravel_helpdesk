@@ -78,7 +78,9 @@
                         @endforelse
                     </tbody>
                 </table>
-
+                <div class="text-center" id="pagination">
+                    {{ $tickets->links('pagination::bootstrap-5') }}
+                </div>
 
             </div>
         </div>

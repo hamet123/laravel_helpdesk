@@ -5,8 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
-class checkAuth
+class checkAdminAuth
 {
     /**
      * Handle an incoming request.
@@ -20,7 +22,11 @@ class checkAuth
         return $next($request);
         }
         else{
-            return redirect('/login')->with('loginError','You need to have administrative privileges in order to access that page.');
+            if (Session::has('uid')) {
+                return redirect('/')->with('adminLoginError','You need to have administrative privileges in order to access that page.');
+            } else {
+                return redirect('/login')->with('adminLoginError','Please Login first to access this page.');
+            }
         }
     }
 }

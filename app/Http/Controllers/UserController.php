@@ -82,6 +82,9 @@ class UserController extends Controller
             if($user->role== 'user'){
                 return redirect("/user-dashboard");
             }
+            if($user->role== 'agent'){
+                return redirect("/agent-dashboard");
+            }   
         }
         else {
             return redirect("/login")->withErrors(['login' => 'Invalid credentials']);;

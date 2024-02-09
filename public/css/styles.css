@@ -35,6 +35,7 @@ footer {
 .navdiv:hover {
     background: rgba(150, 45, 45, 0.9);
 }
+
 #pagination p {
     color: white !important;
 }

@@ -25,6 +25,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'logoutUser')->name('logout');
     Route::post('/change-password', 'changePassword');
     Route::post('/change-admin-password', 'changeAdminPassword');
+    Route::post('/change-agent-password', 'changeAgentPassword');
     Route::get('create-users', 'createDummyUsers');
     Route::get('/', 'getHome')->name('home');
     Route::post('create-agent', 'createAgent');
@@ -73,16 +74,25 @@ Route::middleware('checkAdminAuth')->group(function () {
         Route::post('upload-admin-profile-pic', 'uploadAdminProfilePic');
         Route::post('/edit-admin-profile', 'editAdminProfile');
         Route::post('/update-admin-profile', 'updateAdminProfile');
-
     });
 });
 
-
 // Agent Routes
 Route::controller(AgentController::class)->group(function () {
-  Route::get('/agent-dashboard','getAgentDashboard');
+    Route::get('/agent-dashboard', 'getAgentDashboard')->name('agentDashboard');
+    Route::get('/assigned-tickets', 'getAssignedTickets')->name('assignedTickets');
+    Route::get('/agent-closed-tickets', 'getAgentClosedTickets')->name('agentClosedTickets');
+    Route::get('/agent-profile', 'getAgentProfile')->name('agentProfile');
+    Route::get('/search-users', 'searchUsers')->name('searchUsers');
+    Route::get('/search-agent-tickets', 'searchAgentTickets')->name('searchAgentTickets');
+    Route::get('/close-ticket-by-agent/{id}', 'closeTicketByAgent')->name('closeTicketByAgent');
+    Route::get('/reopen-ticket-by-agent/{id}', 'reOpenTicketByAgent')->name('reOpenTicketByAgent');
+    Route::post('upload-agent-profile-pic', 'uploadAgentProfilePic');
+    Route::post('/edit-agent-profile', 'editAgentProfile');
+    Route::post('/update-agent-profile', 'updateAgentProfile');
+    Route::post('/search-ticket-by-agent', 'searchTicketByAgent')->name('searchTicketByAgent');
+        Route::post('/search-user-by-agent', 'searchUserByAgent')->name('searchUserByAgent');
 });
-
 
 // Misacallaneous Routes
 Route::get('/ticket/{id}', [MainController::class, 'getTicket'])->name('getTicket');

@@ -173,7 +173,7 @@
                     <tbody>
                         @forelse ($agents as $agent)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td scope="row">{{ $loop->iteration }}</td>
                                 <td>{{ $agent['name'] }}</td>
                                 <td>{{ $agent['email'] }}</td>
                                 <td>{{ $agent['username'] }}</td>

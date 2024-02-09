@@ -18,9 +18,7 @@ use App\Models\Department;
 .text-danger:hover{
     font-weight: bold;
 }
-#pagination p{
-    color:white !important;
-}
+
 </style>
   
 @endpush

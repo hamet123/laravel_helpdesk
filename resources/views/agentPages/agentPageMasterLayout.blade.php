@@ -52,11 +52,11 @@
         <div class="col-md-3 mt-5">
             <div class="sidemenu">
                 <ul class="">
-                    <a href="#"><li class="assignedTickets">Assigned Tickets</li></a>
-                    <a href="#"><li class="closedTickets">Closed Tickets</li></a>
-                    <a href="#"><li class="agentProfile">Agent Profile</li></a>
-                    <a href="#"><li class="searchTicket">Search a Ticket</li></a>
-                    <a href="#"><li class="searchUser">Search a User/Agent</li></a>
+                    <a href="/assigned-tickets"><li class="assignedTickets">Assigned Tickets</li></a>
+                    <a href="/agent-closed-tickets"><li class="closedTickets">Closed Tickets</li></a>
+                    <a href="/agent-profile"><li class="agentProfile">Agent Profile</li></a>
+                    <a href="/search-agent-tickets"><li class="searchTicket">Search a Ticket</li></a>
+                    <a href="/search-users"><li class="searchUser">Search a User/Agent</li></a>
                 </ul>
             </div>
         </div>

@@ -214,3 +214,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if (session('agentTicketClosedSuccessfully'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session('agentTicketClosedSuccessfully') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if (session('noTicketFoundError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('noTicketFoundError') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if (session('noPermissionError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('noPermissionError') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('agentTicketreOpenedSuccessfully'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session('agentTicketreOpenedSuccessfully') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif

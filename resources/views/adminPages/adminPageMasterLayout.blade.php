@@ -56,8 +56,8 @@
                     <a href="/manage-agents"><li class="manageAgents">Create and Manage Agents</li></a>
                     <a href="/manage-ticket-statuses"><li class="manageTicketStatuses">Create and Manage Ticket Statuses</li></a>
                     <a href="/admin-profile"><li class="adminProfile">Manage Your Profile</li></a>
-                    <a href="search-ticket"><li class="searchTicket">Search a Ticket</li></a>
-                    <a href="search-agents-and-users"><li class="searchAgentsAndUsers">Search Agents/Users</li></a>
+                    <a href="/search-ticket"><li class="searchTicket">Search a Ticket</li></a>
+                    <a href="/search-agents-and-users"><li class="searchAgentsAndUsers">Search Agents/Users</li></a>
                 </ul>
             </div>
         </div>

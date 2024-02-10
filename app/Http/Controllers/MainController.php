@@ -49,7 +49,7 @@ class MainController extends Controller
         $departments = Department::all();
         $userData = User::find(Session::get('uid'));
         $tickets = Ticket::where('user_id', $userData->id)
-            ->where('status_id', '=', getPendingStatusId())
+            ->where('status_id', '!=', getClosedStatusId())
             ->paginate(5);
         return view('userPages.pendingTickets', ['tickets' => $tickets])
             ->with('user', $userData)

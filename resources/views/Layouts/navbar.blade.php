@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg d-flex align-items-center navbar-dark" style="background: rgba(0, 0, 0, 0.7);">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><img height="30px" width="30px" src="{{ asset('images/logo.png') }}"
+        <a class="navbar-brand" href="/"><img height="30px" width="30px" src="{{ asset('images/logos.png') }}"
                 alt=""> iDesk</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

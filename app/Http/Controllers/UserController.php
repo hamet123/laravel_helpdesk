@@ -248,4 +248,14 @@ public function createAgent(Request $req){
             return redirect("/ticket/$req->ticket_id")->with('commentAddFailed', 'Comment Add Failed');
         }
     }
+
+    public function deleteComment($id){
+        $comment = Comment::find($id);
+        if(Session::get('uid')==$comment->user_id){
+            $comment->delete();
+            return redirect("/ticket/$comment->ticket_id")->with('commentDeletedSuccess', 'Comment Deleted Successfully');
+        } else {
+            return redirect("/ticket/$comment->ticket_id")->with('commentDeleteFailed', 'You do not have permission to delete this comment');
+        }
+    }   
 }

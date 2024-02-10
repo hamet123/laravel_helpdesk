@@ -32,6 +32,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('create-agent', 'createAgent');
     Route::post('/ticket-config', 'ticketConfig');
     Route::post('/add-comment', 'addComment');
+    Route::get('/delete-comment/{id}', 'deleteComment');
 });
 
 // User Routes

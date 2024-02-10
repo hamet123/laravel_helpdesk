@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+// Authentication and other global routes
 Route::controller(UserController::class)->group(function () {
     Route::get('/login', 'getLoginPage')->name('login');
     Route::get('/register', 'getRegisterPage')->name('register');
@@ -29,8 +30,11 @@ Route::controller(UserController::class)->group(function () {
     Route::get('create-users', 'createDummyUsers');
     Route::get('/', 'getHome')->name('home');
     Route::post('create-agent', 'createAgent');
+    Route::post('/ticket-config', 'ticketConfig');
+    Route::post('/add-comment', 'addComment');
 });
 
+// User Routes
 Route::middleware('checkUserAuth')->group(function () {
     Route::controller(MainController::class)->group(function () {
         Route::get('/user-dashboard', 'getAllTickets')->name('userDashboard');
@@ -49,6 +53,7 @@ Route::middleware('checkUserAuth')->group(function () {
     });
 });
 
+// Admin Routes
 Route::middleware('checkAdminAuth')->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin-dashboard', 'adminDashboard')->name('adminDashboard');
@@ -78,23 +83,33 @@ Route::middleware('checkAdminAuth')->group(function () {
 });
 
 // Agent Routes
-Route::controller(AgentController::class)->group(function () {
-    Route::get('/agent-dashboard', 'getAgentDashboard')->name('agentDashboard');
-    Route::get('/assigned-tickets', 'getAssignedTickets')->name('assignedTickets');
-    Route::get('/agent-closed-tickets', 'getAgentClosedTickets')->name('agentClosedTickets');
-    Route::get('/agent-profile', 'getAgentProfile')->name('agentProfile');
-    Route::get('/search-users', 'searchUsers')->name('searchUsers');
-    Route::get('/search-agent-tickets', 'searchAgentTickets')->name('searchAgentTickets');
-    Route::get('/close-ticket-by-agent/{id}', 'closeTicketByAgent')->name('closeTicketByAgent');
-    Route::get('/reopen-ticket-by-agent/{id}', 'reOpenTicketByAgent')->name('reOpenTicketByAgent');
-    Route::post('upload-agent-profile-pic', 'uploadAgentProfilePic');
-    Route::post('/edit-agent-profile', 'editAgentProfile');
-    Route::post('/update-agent-profile', 'updateAgentProfile');
-    Route::post('/search-ticket-by-agent', 'searchTicketByAgent')->name('searchTicketByAgent');
+Route::middleware('checkAgentAuth')->group(function () {
+    Route::controller(AgentController::class)->group(function () {
+        Route::get('/agent-dashboard', 'getAgentDashboard')->name('agentDashboard');
+        Route::get('/assigned-tickets', 'getAssignedTickets')->name('assignedTickets');
+        Route::get('/agent-closed-tickets', 'getAgentClosedTickets')->name('agentClosedTickets');
+        Route::get('/agent-profile', 'getAgentProfile')->name('agentProfile');
+        Route::get('/search-users', 'searchUsers')->name('searchUsers');
+        Route::get('/search-agent-tickets', 'searchAgentTickets')->name('searchAgentTickets');
+        Route::get('/close-ticket-by-agent/{id}', 'closeTicketByAgent')->name('closeTicketByAgent');
+        Route::get('/reopen-ticket-by-agent/{id}', 'reOpenTicketByAgent')->name('reOpenTicketByAgent');
+        Route::post('upload-agent-profile-pic', 'uploadAgentProfilePic');
+        Route::post('/edit-agent-profile', 'editAgentProfile');
+        Route::post('/update-agent-profile', 'updateAgentProfile');
+        Route::post('/search-ticket-by-agent', 'searchTicketByAgent')->name('searchTicketByAgent');
         Route::post('/search-user-by-agent', 'searchUserByAgent')->name('searchUserByAgent');
+    });
 });
 
-// Misacallaneous Routes
+// Miscellaneous and other Global Routes
 Route::get('/ticket/{id}', [MainController::class, 'getTicket'])->name('getTicket');
 
 Route::fallback([UserController::class, 'notFound'])->name('notFound');
+
+// Things to be added
+// Global ticket search functionality
+// Homepage to be created with knowledgebase Accordian and demo videos
+// Middleware for Agent pages - Done
+// pagination feature in admin pages
+// Main Ticket Page configuration - Done
+// Ticket comments - Done

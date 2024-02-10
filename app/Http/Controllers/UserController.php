@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+
 
 
 class UserController extends Controller
@@ -207,4 +210,42 @@ public function createAgent(Request $req){
     }
 
 }
+
+    public function ticketConfig(Request $req) {
+        $validatedConfig = $req->validate([
+            'id' => 'required',
+        ]);
+
+        if($validatedConfig){
+            $ticket = Ticket::find($req->id);
+            if($req->department !== NULL){
+                $ticket->department_id = $req->department;
+            }
+            if($req->status !== NULL){
+            $ticket->status_id = $req->status;
+            }
+            $ticket->save();
+            return redirect("/ticket/$req->id")->with('ticketConfigChanged', 'Ticket Details were changed successfully');
+        } else {
+            return redirect("/ticket/$req->id")->with('ticketConfigChangeFailed', 'Ticket Details were not changed');
+        }
+    }
+
+
+    public function addComment(Request $req){
+        $validatedComment = $req->validate([
+            'comment' => 'required|min:15',
+        ]);
+
+        if($validatedComment){
+            $comment = new Comment;
+            $comment->comment = $req->comment;
+            $comment->user_id = Session::get('uid');
+            $comment->ticket_id = $req->ticket_id;
+            $comment->save();
+            return redirect("/ticket/$req->ticket_id")->with('commentAddedSuccess', 'Comment Added Successfully');
+        } else {
+            return redirect("/ticket/$req->ticket_id")->with('commentAddFailed', 'Comment Add Failed');
+        }
+    }
 }

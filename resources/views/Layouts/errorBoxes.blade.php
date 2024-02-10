@@ -239,3 +239,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
+@if (session('ticketConfigChanged'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session('ticketConfigChanged') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('ticketConfigChangeFailed'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('ticketConfigChangeFailed') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if (session('commentAddedSuccess'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session('commentAddedSuccess') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if (session('commentAddFailed'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('commentAddFailed') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif

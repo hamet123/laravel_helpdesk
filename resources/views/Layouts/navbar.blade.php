@@ -60,8 +60,8 @@
                     </li>
                 @endif
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" action="/search-results" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="query">
                 <button class="btn btn-outline-light " type="submit">Search</button>
             </form>
         </div>

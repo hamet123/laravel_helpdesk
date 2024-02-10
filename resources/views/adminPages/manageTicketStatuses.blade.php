@@ -80,9 +80,15 @@
                   </tr>
                </thead>
                <tbody>
+                  @php
+                        $serialNumber = ($statuses->currentPage() - 1) * $statuses->perPage();
+                    @endphp
                   @forelse ($statuses as $status)
+                  @php
+                     $serialNumber++;
+                  @endphp
                   <tr>
-                     <th scope="row">{{ $loop->iteration }}</th>
+                     <th scope="row">{{ $serialNumber }}</th>
                      <td>{{ $status->status_name }}</td>
                      <td>
                         <a href="/edit-ticket-status/{{ $status->id }}" class="btn btn-success">Edit</a>
@@ -96,6 +102,9 @@
                   @endforelse
                </tbody>
             </table>
+            <div class="text-center" id="pagination">
+               {{ $statuses->links('pagination::bootstrap-5') }}
+           </div>
          </div>
       </div>
    </div>

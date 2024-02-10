@@ -171,9 +171,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $serialNumber = ($agents->currentPage() - 1) * $agents->perPage();
+                    @endphp
                         @forelse ($agents as $agent)
+                        @php
+                            $serialNumber++;
+                        @endphp
                             <tr>
-                                <td scope="row">{{ $loop->iteration }}</td>
+                                <td scope="row">{{ $serialNumber }}</td>
                                 <td>{{ $agent['name'] }}</td>
                                 <td>{{ $agent['email'] }}</td>
                                 <td>{{ $agent['username'] }}</td>
@@ -189,7 +195,11 @@
                             </tr>
                         @endforelse
                     </tbody>
+                    
                 </table>
+                <div class="text-center" id="pagination">
+                    {{ $agents->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>

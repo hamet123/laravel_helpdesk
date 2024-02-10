@@ -33,6 +33,8 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/ticket-config', 'ticketConfig');
     Route::post('/add-comment', 'addComment');
     Route::get('/delete-comment/{id}', 'deleteComment');
+    Route::get('/search-results', 'searchQuery');
+    // Route::get('/search-results', 'getSearchResults');
 });
 
 // User Routes
@@ -108,9 +110,9 @@ Route::get('/ticket/{id}', [MainController::class, 'getTicket'])->name('getTicke
 Route::fallback([UserController::class, 'notFound'])->name('notFound');
 
 // Things to be added
-// Global ticket search functionality
+// Global ticket search functionality - Done
 // Homepage to be created with knowledgebase Accordian and demo videos
 // Middleware for Agent pages - Done
-// pagination feature in admin pages
+// pagination feature in admin pages - Done
 // Main Ticket Page configuration - Done
 // Ticket comments - Done

@@ -77,6 +77,7 @@
          <div>
             <h2 class="text-white text-center">List of Departments</h2>
             <hr>
+          
             <table class="table mt-5">
                <thead>
                   <tr>
@@ -86,9 +87,15 @@
                   </tr>
                </thead>
                <tbody>
+                  @php
+                  $serialNumber = ($departments->currentPage() - 1) * $departments->perPage();
+              @endphp
                   @forelse ($departments as $department)
+                  @php
+                     $serialNumber++;
+                  @endphp
                      <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
+                        <th scope="row">{{ $serialNumber }}</th>
                         <td>{{ $department->department }}</td>
                         <td style="min-width:200px;">
                            <a href="/edit-department/{{ $department->id }}" class="btn btn-primary">Edit</a>
@@ -101,7 +108,11 @@
                     </tr>
                   @endforelse
                </tbody>
+               
             </table>
+            <div class="text-center" id="pagination">
+               {{ $departments->links('pagination::bootstrap-5') }}
+           </div>
          </div>
       </div>
    </div>

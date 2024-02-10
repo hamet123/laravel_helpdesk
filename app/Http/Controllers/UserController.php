@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Comment;
+use App\Models\UserInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -258,4 +259,58 @@ public function createAgent(Request $req){
             return redirect("/ticket/$comment->ticket_id")->with('commentDeleteFailed', 'You do not have permission to delete this comment');
         }
     }   
+
+
+    public function searchQuery(Request $request)
+    {
+        $query = $request->input('query');
+
+        $results1 = Comment::where('comment', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'Comment';
+            return $result;
+        });
+        
+        $results2 = Ticket::where('subject', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'Ticket';
+            return $result;
+        });
+        
+        $results3 = Ticket::where('description', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'Ticket';
+            return $result;
+        });
+        
+        $results4 = User::where('name', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'User';
+            return $result;
+        });
+        
+        $results5 = UserInfo::where('address', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'UserInfo';
+            return $result;
+        });
+        
+        $results6 = UserInfo::where('phone', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'UserInfo';
+            return $result;
+        });
+        
+        $results7 = Ticket::where('id', 'LIKE', "%$query%")->get()->map(function ($result) {
+            $result['model_type'] = 'Ticket';
+            return $result;
+        });
+        
+        $combinedResults = $results1
+            ->merge($results2)
+            ->merge($results3)
+            ->merge($results4)
+            ->merge($results5)
+            ->merge($results6)
+            ->merge($results7);
+        
+        return view('searchResults', ['results' => $combinedResults]);
+        
+    }
+
+
 }

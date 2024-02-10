@@ -19,19 +19,19 @@ class adminController extends Controller
 
     public function manageAgents(Request $req){
         $departments = Department::all();
-        $agents = User::where('role','=','agent')->get()->toArray();
+        $agents = User::where('role','=','agent')->paginate(5);
         $req->session()->put('editAgent', false);
         return view("adminPages.manageAgents")->with("departments",$departments)->with('agents',$agents);
     }
 
     public function manageDepartments(Request $req){
-        $departments = Department::all();
+        $departments = Department::paginate(5);
         $req->session()->put('editDepartment',false);
         return view("adminPages.manageDepartments")->with('departments',$departments);
     }
 
     public function manageTicketStatuses(Request $req){
-        $statuses = Status::all();
+        $statuses = Status::paginate(5);
         $req->session()->put('editStatus',false);
         return view("adminPages.manageTicketStatuses")->with('statuses',$statuses);
     }

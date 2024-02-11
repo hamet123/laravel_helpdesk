@@ -97,7 +97,9 @@ class UserController extends Controller
     }
 
     public function logoutUser(Request $req){
-        $req->session()->pull('uid',null);
+       \Session::flush();
+       \Auth::logout();
+        // $req->session()->pull('uid',null);
         $req->session()->flash('logout','You have successfully logged out.');
         return redirect('/login');
     }

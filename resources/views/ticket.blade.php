@@ -42,7 +42,7 @@
                     <textarea class="mb-2" style="background:rgba(0,0,0,0.2);color:white; width:100%; min-height:340px; padding:20px;"
                         id="" disabled>{{ $ticket['description'] }}</textarea>
                     @foreach ($ticketAttachments as $singleAttachment)
-                        <a class="mx-2 specialfont" target="_blank" href="{{ Storage::url($singleAttachment->path) }}">Attachment
+                        <a class="mx-2 specialfont" target="_blank" href="{{ Storage::url($singleAttachment->path) }}"><i class="fa-solid fa-paperclip"></i> Attachment
                             {{ $loop->iteration }} </a>
                     @endforeach
                 </div>
@@ -124,19 +124,20 @@
         <div class="row mt-2 text-white white-border p-5 dark-background">
             <div class="col-md-12">
                 @foreach ($comments as $comment)
-                    <div style="border:1px solid grey; border-radius:10px;" class="mb-5">
+                    <div style="border:1px solid grey; border-radius:10px; background:rgba(89, 89, 89, 0.3);-webkit-backdrop-filter: blur(10px);
+                    backdrop-filter: blur(10px);" class="mb-5">
                         <div class="comment p-3">
                             <div class="row d-flex align-items-center justify-content-center">
                                 <div class="col-md-4">
-                                    <p class="specialfont">Added by -
+                                    <p class="specialfont"><i class="fa-solid fa-user"></i> &nbsp;&nbsp;Added by -
                                         {{ App\Models\User::find($comment['user_id'])['name'] }}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="specialfont">Added on - {{ $comment['created_at']->format('F j, Y h:i A') }}
+                                    <p class="specialfont"><i class="fa-regular fa-clock"></i> &nbsp;&nbsp;Added on - {{ $comment['created_at']->format('F j, Y h:i A') }}
                                     </p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="specialfont">Email Id -
+                                    <p class="specialfont"><i class="fa-solid fa-envelope"></i> &nbsp;&nbsp;Email Id -
                                         {{ App\Models\User::find($comment['user_id'])['email'] }}</p>
                                 </div>
                             </div>

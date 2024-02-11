@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/33b31a14a3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset("css/styles.css") }}">
     <title>iDesk - @yield('title')</title>
+    @stack('customscripts')
   </head>
   <body>
     @include('layouts.navbar')

@@ -35,7 +35,8 @@ class AgentController extends Controller
     }
 
     public function getAssignedTickets(){
-        $tickets = Ticket::where('agent_id', Session::get('uid'))->where('status_id','!=',getClosedStatusId())->paginate(5);
+        $department = User::where('id', Session::get('uid'))->first()['department_id'];
+        $tickets = Ticket::where('agent_id', Session::get('uid'))->where('status_id','!=',getClosedStatusId())->where('department_id',$department)->paginate(5);
         return view('agentPages.assignedTickets')->with('tickets', $tickets);
     }
 
@@ -56,7 +57,8 @@ class AgentController extends Controller
     }
 
     public function getAgentClosedTickets(){
-        $tickets = Ticket::where('agent_id', Session::get('uid'))->where('status_id','=',getClosedStatusId())->paginate(5);
+        $department = User::where('id', Session::get('uid'))->first()['department_id'];
+        $tickets = Ticket::where('agent_id', Session::get('uid'))->where('status_id','=',getClosedStatusId())->where('department_id',$department)->paginate(5);
         return view('agentPages.closedTickets')->with('tickets', $tickets);
     }
 

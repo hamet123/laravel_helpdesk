@@ -101,6 +101,8 @@ Route::middleware('checkAgentAuth')->group(function () {
         Route::post('/update-agent-profile', 'updateAgentProfile');
         Route::post('/search-ticket-by-agent', 'searchTicketByAgent')->name('searchTicketByAgent');
         Route::post('/search-user-by-agent', 'searchUserByAgent')->name('searchUserByAgent');
+        Route::post('/ticket-report', [MainController::class, 'ticketReport'])->name('ticketReport');
+        Route::get('/ticket-report', [MainController::class, 'getTicketReport'])->name('getTicketReport');
     });
 });
 
@@ -108,6 +110,9 @@ Route::middleware('checkAgentAuth')->group(function () {
 Route::get('/ticket/{id}', [MainController::class, 'getTicket'])->name('getTicket');
 
 Route::fallback([UserController::class, 'notFound'])->name('notFound');
+
+// PDF download and stream
+Route::get('/download-ticket/{id}', [MainController::class, 'downloadTicket'])->name('downloadTicket');
 
 // Things to be added
 // Global ticket search functionality - Done

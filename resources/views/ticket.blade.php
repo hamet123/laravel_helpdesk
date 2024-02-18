@@ -30,7 +30,7 @@
         <div class="row dark-background p-3">
             <div class="col-md-12">
                 <div class="white-border p-5">
-                    <h2 class="text-white text-center">Subject - {{ $ticket['subject'] }}</h2>
+                    <h2 class="text-white text-center">Subject - {{ $ticket['subject'] }} <a href="/download-ticket/{{ $ticket['id'] }}"  class="mx-3 btn btn-success">Print</a></h2> 
                 </div>
             </div>
         </div>

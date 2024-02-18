@@ -65,7 +65,7 @@ class adminController extends Controller
 
     public function getEditDepartment($id, Request $req){
         $changeDepartment = Department::find($id);
-        $departments = Department::all();
+        $departments = Department::paginate(5);
         $req->session()->put('editDepartment', true);
         return view('adminPages.manageDepartments', ['changeDepartment' => $changeDepartment])->with('departments', $departments);
     }
@@ -89,7 +89,7 @@ class adminController extends Controller
     public function getEditAgent($id, Request $req){
         $agentDetails = User::find($id);
         $departments = Department::all();
-        $agents = User::where('role','=','agent')->get()->toArray();
+        $agents = User::where('role','=','agent')->paginate(5);
         $req->session()->put('editAgent', true);
         return view('adminPages.manageAgents', ['agentDetails' => $agentDetails])->with('agents', $agents)->with('departments', $departments);
     }
@@ -141,7 +141,7 @@ class adminController extends Controller
 
     public function getEditTicketStatus($id,Request $req){
         $statusDetails = Status::find($id);
-        $statuses = Status::all();
+        $statuses = Status::paginate(5);
         $req->session()->put('editStatus', true);
         return view('adminPages.manageTicketStatuses', ['statusDetails' => $statusDetails])->with('statuses',$statuses);
     }

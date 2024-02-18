@@ -58,6 +58,7 @@
                     <a href="/admin-profile"><li class="adminProfile">Manage Your Profile</li></a>
                     <a href="/search-ticket"><li class="searchTicket">Search a Ticket</li></a>
                     <a href="/search-agents-and-users"><li class="searchAgentsAndUsers">Search Agents/Users</li></a>
+                    <a href="/ticket-report"><li class="ticketreport">Reports</li></a>
                 </ul>
             </div>
         </div>

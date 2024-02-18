@@ -13,6 +13,7 @@ use App\Models\Department;
 use App\Models\Comment;
 use App\Models\Status;
 use App\Models\UserInfo;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 function getPendingStatusId()
 {
@@ -23,6 +24,7 @@ function getPendingStatusId()
         }
     }
 }
+
 function getClosedStatusId()
 {
     $statuses = Status::all();
@@ -126,6 +128,19 @@ class MainController extends Controller
         $ticketUser = $ticket->attachedUser;
         $ticketAttachments = $ticket->attachedAttachments;
         return view('ticket')->with('ticket', $ticket)->with('ticketUser', $ticketUser)->with('ticketAttachments', $ticketAttachments)->with('departments', $departments)->with('statuses', $statuses)->with('comments', $comments);
+    }
+
+    public function downloadticket($id)
+    {
+        $ticket = Ticket::find($id);
+        $departments = Department::all();
+        $statuses = Status::all();
+        $ticketUser = $ticket->attachedUser;
+        // return view('pdf.printTicket',compact('ticket', 'departments', 'statuses', 'ticketUser'));
+        $pdf = Pdf::loadView('pdf.printTicket', compact('ticket', 'departments', 'statuses', 'ticketUser'));
+        Pdf::setOption(['dpi' => 150, 'defaultFont' => 'montserrat']);
+        return $pdf->download('printTicket/' . $ticket['id'] . '.pdf');
+        // return $pdf->stream();
     }
 
     public function editTicket(Request $req)
@@ -300,5 +315,41 @@ class MainController extends Controller
         $userData->name = $req->name;
         $userData->save();
         return redirect('/my-profile')->with('profileUpdatedSuccessfully', 'Profile has been updated successfully');
+    }
+
+    public function getAgentReport()
+    {
+        $pdf = PDF::loadView('pdf.agentReport.pdf');
+        return $pdf->download('agent-report.pdf');
+    }
+
+    public function getTicketReport()
+    {
+        $departments = Department::all();
+        $statuses = Status::all();
+        $agents = User::where('role', 'agent')->get();
+        return view('adminPages.ticketReport', compact('departments', 'statuses', 'agents'));
+    }
+
+    public function ticketReport(Request $request)
+    {
+        $ticketQuery = Ticket::query();
+
+        if ($request->filled('department')) {
+            $ticketQuery->where('department_id', $request->input('department'));
+        }
+
+        if ($request->filled('agent')) {
+            $ticketQuery->where('agent_id', $request->input('agent'));
+        }
+
+        if ($request->filled('status')) {
+            $ticketQuery->where('status_id', $request->input('status'));
+        }
+
+        $tickets = $ticketQuery->get();
+        // return view('pdf.ticketReport', compact('tickets'));
+        $pdf = PDF::loadView('pdf.ticketReport', compact('tickets'));
+        return $pdf->download('ticket-report.pdf');
     }
 }

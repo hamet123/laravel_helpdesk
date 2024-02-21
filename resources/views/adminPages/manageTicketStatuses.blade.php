@@ -45,6 +45,11 @@
          @endif
 
          @if (Session::get('editStatus') && isset($statusDetails))
+         <style>
+            body{
+                background: url('/images/bgg.jpg');
+            }
+        </style>
          <div class="updateStatus">
             <h2 class="text-center text-white">Edit Ticket Status</h2>
             <hr class="mb-5">

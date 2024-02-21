@@ -52,6 +52,12 @@
             <hr>
             <div class="row">
                 <div class="col-md-3">
+                    <strong>Ticket Number - <i>{{ $ticket['id'] }}</i></strong>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
                     <strong>Subject - <i>{{ strtoupper($ticket['subject']) }}</i></strong>
                 </div>
             </div>

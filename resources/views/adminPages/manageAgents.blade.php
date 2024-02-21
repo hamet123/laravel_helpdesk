@@ -101,6 +101,11 @@
 
 
         @if (Session::get('editAgent') && isset($agentDetails))
+        <style>
+            body{
+                background: url('/images/bgg.jpg');
+            }
+        </style>
             <div class="row d-flex  justify-content-center mb-5 mt-3">
                 <div class="col-md-12">
                     <div class="agentForm">

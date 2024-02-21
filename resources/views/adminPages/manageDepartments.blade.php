@@ -50,6 +50,11 @@
   
 
    @if (Session::get('editDepartment') && isset($changeDepartment))
+   <style>
+      body{
+          background: url('/images/bgg.jpg');
+      }
+   </style>
    <div class="row creatediv d-flex justify-content-center mb-5 mt-3">
       <div class="col-md-8">
          <div>

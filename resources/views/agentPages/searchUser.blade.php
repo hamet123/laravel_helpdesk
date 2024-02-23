@@ -119,8 +119,8 @@
                             <div class="row d-flex justify-content-center mt-5">
                                 <div class="col-xl-6 resultdiv">
                                     <div class="d-flex justify-content-center">
-                                        <img src="{{ Storage::url($user['profile_pic_path']) }}" alt=""
-                                            class="text-center my-3"
+                                        <img src="{{ isset($user['profile_pic_path']) ? Storage::url($user['profile_pic_path']) : '/images/profile.png' }}"
+                                            alt="" class="text-center my-3"
                                             style="border:1px solid grey; border-radius:50%; height:100px; width:100px; padding:10px;">
                                     </div>
                                     <hr class="my-3">
@@ -129,14 +129,12 @@
                                         <div class="col-md-12">
                                             <div class="address">
                                                 <p class="addressTitle">User Info</p>
-                                                @if ($user['department_id'] !== null)
-                                                    <p class="address">Department Assigned :
-                                                        {{ Department::find($user['department_id'])['department'] }}</p>
-                                                    <hr class="my-3">
-                                                @endif
-                                                 <p class="address">Full Name : {{ $user['name'] }}</p>
-                                                 <p class="address">Username : {{ $user['username'] }}</p>
-                                                 <p class="address">Role : {{ $user['role'] }}</p>
+                                                <p class="address">Full Name : {{ $user['name'] }}</p>
+                                                <p class="address">Username : {{ $user['username'] }}</p>
+                                                <p class="address">Role : {{ $user['role'] }}</p>
+                                                <p class="address">Department Assigned :
+                                                    {{ isset($user['department_id']) ? Department::find($user['department_id'])['department'] : 'No Department found' }}
+                                                </p>
                                             </div>
                                         </div>
                                         <hr class="my-3">
@@ -147,7 +145,9 @@
                                         <div class="col-md-12">
                                             <div class="contact">
                                                 <p class="contactTitle">Address</p>
-                                                <p class="contact">{{ $userDetails['address'] }}</p>
+                                                <p class="contact">
+                                                    {{ isset($userDetails['address']) ? $userDetails['address'] : 'Address Not updated by the User' }}
+                                                </p>
 
                                             </div>
                                         </div>
@@ -159,7 +159,9 @@
                                         <div class="col-md-12">
                                             <div class="address">
                                                 <p class="addressTitle">Contact Details</p>
-                                                <p class="address">Phone Number : {{ $userDetails['phone'] }}</p>
+                                                <p class="address">Phone Number :
+                                                    {{ isset($userDetails['phone']) ? $userDetails['phone'] : 'Phone Number Not updated by the User' }}
+                                                </p>
                                                 <p class="address">Email : {{ $user['email'] }}</p>
 
                                             </div>
@@ -167,7 +169,7 @@
                                         <hr class="my-3">
                                     </div>
 
-                                
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p class="socialTitle">Social Network</p>
@@ -176,19 +178,23 @@
                                                 <div class="row">
 
                                                     <div class="col-md-3">
-                                                        <a href="{{ $userDetails['facebook'] }}"> <i
-                                                                class="socialIcons fa-brands fa-square-facebook"></i></a>
+                                                        <a
+                                                            href="{{ isset($userDetails['facebook']) ? $userDetails['facebook'] : '#' }}">
+                                                            <i class="socialIcons fa-brands fa-square-facebook"></i></a>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <a href="{{ $userDetails['twitter'] }}"><i
+                                                        <a
+                                                            href="{{ isset($userDetails['twitter']) ? $userDetails['twitter'] : '#' }}"><i
                                                                 class="socialIcons fa-brands fa-square-x-twitter"></i></a>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <a href="{{ $userDetails['youtube'] }}"><i
+                                                        <a
+                                                            href="{{ isset($userDetails['youtube']) ? $userDetails['youtube'] : '#' }}"><i
                                                                 class="socialIcons fa-brands fa-youtube"></i></a>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <a href="{{ $userDetails['instagram'] }}"><i
+                                                        <a
+                                                            href="{{ isset($userDetails['instagram']) ? $userDetails['instagram'] : '#' }}"><i
                                                                 class="socialIcons fa-brands fa-square-instagram"></i></a>
 
                                                     </div>
@@ -197,11 +203,13 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endif
+
             </div>
         </div>
     </div>

@@ -66,7 +66,10 @@
                     <option value="">No Status Found</option>
                 @endforelse
             </select>
-            <button class="btn my-4 btn-danger">Download Report</button>
+            <button class="btn my-4 btn-danger" type="submit" name="pdf">Download PDF Report</button>
+            <button class="btn my-4 btn-danger" type="submit" name="excel">Download Excel Report</button>
+
+            {{-- <a href="/ticket-report-excel" class="btn btn-danger">Download Excel Report</a> --}}
         </form>
     </div>
 </div>

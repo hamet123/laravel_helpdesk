@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('department_id')->nullable()->default(NULL)->constrained('departments');
             $table->string('profile_pic_path')->nullable();
+            $table->integer('security_question')->nullable();
+            $table->string('security_answer')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

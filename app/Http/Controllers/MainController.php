@@ -14,6 +14,8 @@ use App\Models\Comment;
 use App\Models\Status;
 use App\Models\UserInfo;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Excel;
+use App\Exports\TicketExport;
 
 function getPendingStatusId()
 {
@@ -333,6 +335,7 @@ class MainController extends Controller
 
     public function ticketReport(Request $request)
     {
+
         $ticketQuery = Ticket::query();
 
         if ($request->filled('department')) {
@@ -348,8 +351,15 @@ class MainController extends Controller
         }
 
         $tickets = $ticketQuery->get();
+        
+        if($request->has('pdf')){
         // return view('pdf.ticketReport', compact('tickets'));
         $pdf = PDF::loadView('pdf.ticketReport', compact('tickets'));
         return $pdf->download('ticket-report.pdf');
+        }
+        if($request->has('excel')){
+            return Excel::download(new TicketExport($tickets), 'ticket_report.xlsx');
+        }
     }
+
 }

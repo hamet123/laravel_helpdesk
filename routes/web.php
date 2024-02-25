@@ -24,6 +24,9 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/register', 'registerUser');
     Route::post('/login', 'loginUser');
     Route::get('/logout', 'logoutUser')->name('logout');
+    Route::get('/forgot-password', 'getForgotPassword')->name('getForgotPassword');
+    Route::post('/forgot-password', 'forgotPassword')->name('forgotPassword');
+    Route::post('/change-your-password', 'changeYourPassword')->name('changeYourPassword');
     Route::post('/change-password', 'changePassword');
     Route::post('/change-admin-password', 'changeAdminPassword');
     Route::post('/change-agent-password', 'changeAgentPassword');
@@ -81,7 +84,10 @@ Route::middleware('checkAdminAuth')->group(function () {
         Route::post('/search-user', 'searchUser')->name('searchUser');
         Route::post('upload-admin-profile-pic', 'uploadAdminProfilePic');
         Route::post('/edit-admin-profile', 'editAdminProfile');
-        Route::post('/update-admin-profile', 'updateAdminProfile');
+        Route::post('/update-admin-profile', 'updateAdminProfile');  
+        Route::post('/ticket-report', [MainController::class, 'ticketReport'])->name('ticketReport');
+        Route::get('/ticket-report', [MainController::class, 'getTicketReport'])->name('getTicketReport');
+        Route::get('/ticket-report-excel', [MainController::class, 'getExcelTicketReport'])->name('getExcelTicketReport');
     });
 });
 
@@ -101,8 +107,6 @@ Route::middleware('checkAgentAuth')->group(function () {
         Route::post('/update-agent-profile', 'updateAgentProfile');
         Route::post('/search-ticket-by-agent', 'searchTicketByAgent')->name('searchTicketByAgent');
         Route::post('/search-user-by-agent', 'searchUserByAgent')->name('searchUserByAgent');
-        Route::post('/ticket-report', [MainController::class, 'ticketReport'])->name('ticketReport');
-        Route::get('/ticket-report', [MainController::class, 'getTicketReport'])->name('getTicketReport');
     });
 });
 

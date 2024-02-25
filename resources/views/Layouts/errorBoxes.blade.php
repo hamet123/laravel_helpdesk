@@ -279,3 +279,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
+@if (session('securityQuestionError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('securityQuestionError') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('emailError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('emailError') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('somethingWentWrong'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ session('somethingWentWrong') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif

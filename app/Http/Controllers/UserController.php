@@ -53,11 +53,14 @@ class UserController extends Controller
             "name"=>"required",
             "username"=>"required | unique:users,username| min:8 | max:12",
             "email"=>"required | email | unique:users,email",
+            "security_question"=>"required | integer",
+            "security_answer"=>"required",
             "password"=>"required | confirmed",
             "password_confirmation"=>"required",
         ]);
 
-    
+        if($validatedUser){
+        $validatedUser['security_answer'] = bcrypt($validatedUser['security_answer']);
         User::create($validatedUser);
         $user = User::where('username',$req->username)->first();
         $req->session()->put("uid", $user->id); 
@@ -66,6 +69,9 @@ class UserController extends Controller
         $req->session()->flash('loginRegister','Your account has been created successfully.');
 
         return redirect("/user-dashboard");
+        } else {
+            return redirect('login')->with('somethingWentWrong', 'Something went wrong. Please try again later !!!');
+        }
     }
 
     public function loginUser(Request $req){
@@ -104,25 +110,47 @@ class UserController extends Controller
         return redirect('/login');
     }
 
-    public function changePassword(Request $req){
-        if(Session::has('uid')){
-            $user = User::find(Session::get('uid'));
+    public function getForgotPassword(){
+        return view('authenticate.forgotPassword');
+    }
+
+    public function forgotPassword(Request $req){
+        $validatedUserCredentials = $req->validate([
+            "email"=>"required | email",
+            "security_question"=>"required| integer",
+            "security_answer"=>"required",
+        ]);
+
+        $user = User::where('email',$validatedUserCredentials['email'])->first();
+       if($user){
+        if(($validatedUserCredentials['security_question'] == $user->security_question) && (Hash::check($validatedUserCredentials['security_answer'],$user->security_answer))){
+            return view('authenticate.changeYourPassword')->with('user', $user);
+        } else {
+            return redirect('/forgot-password')->with('securityQuestionError', 'Security Question and Answer does not match !');
+        }
+       } else {
+        return redirect('/forgot-password')->with('emailError', 'Email does not exist!');
+       }
+        
+        
+    }
+    
+
+    public function changeYourPassword(Request $req){
+        
+            $user = User::find($req->uid);
             $req->validate([
-                'current_password'=> 'required',
                 'password'=> 'required|confirmed',
                 'password_confirmation'=> 'required',  
             ]);
 
-            if(Hash::check($req->current_password,$user->password)){
+            if($req->filled('uid')){
                 $user->password = Hash::make($req->password);
                 $user->save();
-                return redirect('/my-profile')->with('passwordChangedSuccess','Your Password has been changed successfully');
+                return redirect('/login')->with('passwordChangedSuccess','Your Password has been changed successfully');
             }
-                else return redirect('/my-profile')->withErrors(['wrongCurrentPassword'=> 'You have entered incorrect current password']);
-    }
-    else{
-        return redirect('/login')->with('LoginError','Please Login First');
-    }
+                else return redirect('/login')->withErrors(['somethingWentWrong'=> 'Something went wrong ! Please try again later !!']);
+    
 }
 
 public function changeAdminPassword(Request $req){
@@ -176,6 +204,8 @@ public function createDummyUsers(){
         'role'=> 'user',
         'username'=> 'hamet123',
         'department_id' => NULL,
+        'security_question' => 2,
+        'security_answer' => '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
     ]);
 
     $adminUser = User::create([
@@ -185,6 +215,8 @@ public function createDummyUsers(){
         'role'=> 'admin',
         'username'=> 'ayush965',
         'department_id' => NULL,
+        'security_question' => 2,
+        'security_answer' => '$2y$12$5unXoNiXhR5k1.aA0ONeHuh6WGPgpDhsKdy8gfrnAC/d.1Jl4u01G',
     ]);
 
     return "User Account and Admin account created successfully - admin ID - ayushsood965@gmail.com Password - 1 / user Id - ayush_94@live.com, Password - 1";
